@@ -50,6 +50,8 @@ private: // メンバ変数
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
+	
+	//デバックカメラ
 	DebugCamera* debugCamera_ = nullptr;
 	WorldTransform worldTransform_;
 	ViewProjection viewProjection_;
@@ -57,7 +59,9 @@ private: // メンバ変数
 
 	//テクスチャハンドル
 	uint32_t textureHandle_ = 0;
+	
 	//スプライト
+	Sprite* sprite_ = nullptr;
 	Model* model_ = nullptr;
 
 
