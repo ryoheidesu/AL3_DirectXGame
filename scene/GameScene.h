@@ -50,10 +50,12 @@ private: // メンバ変数
 	/// ゲームシーン用
 	/// </summary>
 	
+	WorldTransform worldTransform_;
+	ViewProjection viewProjection_;
 	float inputFloat3[3] = {0,0,0};
 
 	//テクスチャハンドル
-	
+	uint32_t textureHandle_ = 0;
 	//スプライト
-	
+	Model* model_ = nullptr;
 };
