@@ -15,7 +15,6 @@ GameScene::~GameScene() {
 }
 
 void GameScene::Initialize() {
-	
 	//デバックカメラの生成
 	debugCamera_ = new DebugCamera(WinApp::kWindowWidth,WinApp::kWindowHeight);
 	//軸方向表示の表示を有効にする
@@ -35,6 +34,10 @@ void GameScene::Initialize() {
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
 
+	// サウンドデータの呼び込み
+	SoundDataHandle_ = audio_->LoadWave("fanfare.wav");
+	// 音声再生
+	audio_->PlayWave(SoundDataHandle_);
 	textureHandle_ = TextureManager::Load("sample.png");
 	sprite_ = Sprite::Create(textureHandle_, {100, 50});
 	model_ = Model ::Create();
