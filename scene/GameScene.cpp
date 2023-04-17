@@ -4,9 +4,13 @@
 
 GameScene::GameScene() {}
 
-GameScene::~GameScene() { delete sprite_; }
+
+GameScene::~GameScene() { delete model_; }
 
 void GameScene::Initialize() {
+
+	worldTransform_.Initialize();
+	viewProjection_.Initialize();
 
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
@@ -14,14 +18,11 @@ void GameScene::Initialize() {
 
 	textureHandle_ = TextureManager::Load("sample.png");
 
-	sprite_ = Sprite::Create(textureHandle_, {100, 50});
+	model_ = Model ::Create();
 }
 
 void GameScene::Update() {
-Vector2 position = sprite_->GetPosition();
-position.x += 2.0f;
-position.y += 1.0f;
-sprite_->SetPosition(position);
+
 }
 
 
@@ -39,7 +40,7 @@ void GameScene::Draw() {
 	/// ここに背景スプライトの描画処理を追加できる
 	/// </summary>
 	
-	sprite_->Draw();
+	
 
 	// スプライト描画後処理
 	Sprite::PostDraw();
@@ -54,6 +55,8 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
+
+	model_->Draw(worldTransform_, viewProjection_, textureHandle_);
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();

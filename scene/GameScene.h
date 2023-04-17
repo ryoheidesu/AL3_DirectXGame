@@ -20,6 +20,7 @@ public: // メンバ関数
 	/// </summary>
 	GameScene();
 
+	
 	/// <summary>
 	/// デストラクタ
 	/// </summary>
@@ -49,9 +50,12 @@ private: // メンバ変数
 	/// ゲームシーン用
 	/// </summary>
 	
+	WorldTransform worldTransform_;
+	ViewProjection viewProjection_;
+
 	//テクスチャハンドル
 	uint32_t textureHandle_ = 0;
 
 	//スプライト
-	Sprite* sprite_ = nullptr;
+	Model* model_ = nullptr;
 };
