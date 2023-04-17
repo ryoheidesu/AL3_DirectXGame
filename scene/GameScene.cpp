@@ -1,28 +1,37 @@
 #include "GameScene.h"
 #include "TextureManager.h"
 #include <cassert>
+#include "ImGuiManager.h"
 
 GameScene::GameScene() {}
 
 
-GameScene::~GameScene() { delete model_; }
+GameScene::~GameScene() {}
 
 void GameScene::Initialize() {
 
-	worldTransform_.Initialize();
-	viewProjection_.Initialize();
+	
 
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
 
-	textureHandle_ = TextureManager::Load("sample.png");
-
-	model_ = Model ::Create();
+	
 }
 
-void GameScene::Update() {
+void GameScene::Update() { 
+	ImGui::Text("Kamata Tarou %d.%d.%d", 2050, 12, 31);
+	ImGui::Begin("Debug1");
+	ImGui::Text("Kamata Tarou %d.%d.%d", 2050, 12, 31);
+	ImGui::End();
 
+	ImGui::Begin("Debug1");
+	ImGui::InputFloat3("InputFloat3", inputFloat3);
+
+	ImGui::SliderFloat3("SliderFloat3", inputFloat3, 0.0f, 1.0f);
+	ImGui::End();
+
+	ImGui::ShowDemoWindow();
 }
 
 
@@ -56,8 +65,7 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 
-	model_->Draw(worldTransform_, viewProjection_, textureHandle_);
-
+	
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
 #pragma endregion
