@@ -3,18 +3,27 @@
 #include <cassert>
 #include "ImGuiManager.h"
 #include "PrimitiveDrawer.h"
+#include "AxisIndicator.h"
 
 GameScene::GameScene() {}
 
 
-GameScene::~GameScene() { delete model_; }
+GameScene::~GameScene() { delete model_; delete debugCamera_;}
 
 void GameScene::Initialize() {
+	
+
+	debugCamera_ = new DebugCamera(WinApp::kWindowWidth,WinApp::kWindowHeight);
+
+	AxisIndicator::GetInstance()->SetVisible(true);
+	AxisIndicator::GetInstance()->SetTargetViewProjection(&debugCamera_->GetViewProjection());
 
 	worldTransform_.Initialize();
 	viewProjection_.Initialize();
 
 	PrimitiveDrawer::GetInstance()->SetViewProjection(&viewProjection_);
+
+	
 
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
@@ -26,6 +35,8 @@ void GameScene::Initialize() {
 }
 
 void GameScene::Update() { 
+
+	debugCamera_->Update();
 	ImGui::Begin("Debug1");
 	ImGui::Text("Kamata Tarou %d.%d.%d", 2050, 12, 31);
 
@@ -67,8 +78,9 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
-
 	model_->Draw(worldTransform_, viewProjection_, textureHandle_);
+	model_->Draw(worldTransform_, debugCamera_->GetViewProjection(), textureHandle_);
+
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
