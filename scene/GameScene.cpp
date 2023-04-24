@@ -5,7 +5,10 @@
 GameScene::GameScene() {}
 
 
-GameScene::~GameScene() { delete model_; }
+GameScene::~GameScene() {
+	delete model_;
+	delete player_;
+}
 
 void GameScene::Initialize() {
 
@@ -25,9 +28,17 @@ void GameScene::Initialize() {
 	audio_ = Audio::GetInstance();
 }
 
-void GameScene::Update() {}
+void GameScene::Update() { 
+	//自キャラの更新
+	player_->Update();
+
+}
 
 void GameScene::Draw() {
+
+	//自キャラの描画
+	player_->Draw();
+
 
 	// コマンドリストの取得
 	ID3D12GraphicsCommandList* commandList = dxCommon_->GetCommandList();
