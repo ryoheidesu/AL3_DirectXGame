@@ -48,4 +48,13 @@ private: // メンバ変数
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
+	
+	//テクスチャハンドル
+	uint32_t textureHandle_ = 0;
+
+	//読み込み
+	textureHandle_  = TextureManager::Load("sample.png");
+
+	//モデル
+	Model* model_ = nullptr;
 };

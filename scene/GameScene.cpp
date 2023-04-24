@@ -5,11 +5,14 @@
 GameScene::GameScene() {}
 
 
-GameScene::~GameScene() {}
+GameScene::~GameScene() { delete model_; }
 
 void GameScene::Initialize() {
 
+	//読み込み
+	textureHandle_ = TextureManager::Load("sample.png");
 
+	model_ = Model::Create();
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
