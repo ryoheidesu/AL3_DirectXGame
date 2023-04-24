@@ -9,6 +9,13 @@ GameScene::~GameScene() { delete model_; }
 
 void GameScene::Initialize() {
 
+	worldTransform_.Initialize();
+	viewProjection_.Initialize();
+	//自キャラの生成
+	player_ = new Player();
+	//自キャラの初期化
+	player_->Initialize();
+
 	//読み込み
 	textureHandle_ = TextureManager::Load("sample.png");
 	//モデル生成
