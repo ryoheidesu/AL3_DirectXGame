@@ -1,4 +1,6 @@
 #pragma once
+#include "Vector3.h"
+
 /// <summary>
 /// 4x4行列
 /// </summary>
@@ -10,7 +12,7 @@ Matrix4x4 MakeScaleMatrix(const Vector3& scale);
 Matrix4x4 MakeRotateXMatrix(float theta);
 Matrix4x4 MakeRotateYMatrix(float theta);
 Matrix4x4 MakeRotateZMatrix(float theta);
-Matrix4x4 MakeTranslateMatrix(Vector3 translate);
+Matrix4x4 MakeTranslateMatrix(const Vector3& translate);
 
 Matrix4x4 MakeAffineMatrix(const Vector3& scale, const Vector3& rot, const Vector3& translate);
 
