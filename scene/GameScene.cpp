@@ -17,12 +17,14 @@ void GameScene::Initialize() {
 	//自キャラの生成
 	player_ = new Player();
 	//自キャラの初期化
-	player_->Initialize();
+	textureHandle_ = TextureManager::Load("sample.png");
 
 	//読み込み
-	textureHandle_ = TextureManager::Load("sample.png");
 	//モデル生成
 	model_ = Model::Create();
+	player_->Initialize(model_, textureHandle_);
+
+
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
@@ -35,10 +37,6 @@ void GameScene::Update() {
 }
 
 void GameScene::Draw() {
-
-	//自キャラの描画
-	player_->Draw();
-
 
 	// コマンドリストの取得
 	ID3D12GraphicsCommandList* commandList = dxCommon_->GetCommandList();
@@ -64,6 +62,10 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
+	// 自キャラの描画
+	player_->Draw(viewProjection_);
+
+
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
