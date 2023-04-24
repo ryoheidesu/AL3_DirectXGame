@@ -11,7 +11,7 @@ void GameScene::Initialize() {
 
 	//読み込み
 	textureHandle_ = TextureManager::Load("sample.png");
-
+	//モデル生成
 	model_ = Model::Create();
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
