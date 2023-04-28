@@ -96,7 +96,6 @@ Matrix4x4& operator*=(Matrix4x4& m1, const Matrix4x4& m2) {
 			}
 		}
 	}
-
 	m1 = result;
 	return m1;
 }
