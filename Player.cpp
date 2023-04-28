@@ -31,10 +31,10 @@ void Player::Update() {
 		move.x += kCharacterSpeed;
 	}
 	if (input_->PushKey(DIK_UP)) {
-		move.y -= kCharacterSpeed;
+		move.y += kCharacterSpeed;
 
 	} else if (input_->PushKey(DIK_DOWN)) {
-		move.y += kCharacterSpeed;
+		move.y -= kCharacterSpeed;
 	}
 	
 	worldTransform_.translation_.x += move.x;
