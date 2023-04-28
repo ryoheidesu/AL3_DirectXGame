@@ -7,7 +7,7 @@ public:
 
 	void Update();
 
-	void Draw(const);
+	void Draw();
 
 
 };
