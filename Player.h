@@ -4,6 +4,7 @@
 #include "WorldTransform.h"
 #include "ViewProjection.h"
 #include"Input.h"
+#include"PlayerBullet.h"
 
 class Player {
 
@@ -17,8 +18,9 @@ private:
 
 	uint32_t textureHandle_ = 0u;
 	Input* input_ = nullptr;
+	PlayerBullet* bullet_ = nullptr;
 
-	
+	void Attack();
 
 public:
 	void Initialize(Model* model, uint32_t textureHandle);
