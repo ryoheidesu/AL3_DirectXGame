@@ -53,6 +53,7 @@ void Player::Update() {
 		return false;
 	});
 
+
 	Vector3 move = {0, 0, 0};
 
 	//キャラクターの移動速さ
