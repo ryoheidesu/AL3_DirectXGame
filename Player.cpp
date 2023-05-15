@@ -3,17 +3,25 @@
 #include<cassert>
 #include"ImGuiManager.h"
 
+Player::~Player() {
+	for (PlayerBullet* bullet : bullets_) {
+		delete bullet;
+	}
+}
+
+
 void Player::Attack() {
 	/*if (bullet_) {
 		delete bullet_;
 		bullet_ = nullptr;
 	}*/
 
-	if (input_->PushKey(DIK_SPACE)) {
+	if (input_->TriggerKey(DIK_SPACE)) {
 		PlayerBullet* newBullet = new PlayerBullet();
 		newBullet->Initialize(model_,worldTransform_.translation_ );
 
-		bullet_ = newBullet;
+		//bullet_ = newBullet;
+		bullets_.push_back(newBullet);
 	}
 }
 
@@ -38,6 +46,14 @@ void Player::Update() {
 	//押した方向で移動ベクトルを変更
 	worldTransform_.TransferMatrix();
 
+	const float kRotSpeed = 0.02f;
+
+	if (input_->PushKey(DIK_A)) {
+		worldTransform_.rotation_.y += kRotSpeed;
+	} else if (input_->PushKey(DIK_D)) {
+		worldTransform_.rotation_.y -= kRotSpeed;
+	}
+
 	if (input_->PushKey(DIK_LEFT)) {
 		move.x -= kCharacterSpeed;
 	
@@ -55,18 +71,14 @@ void Player::Update() {
 	worldTransform_.translation_.y += move.y;
 	worldTransform_.translation_.z += move.z;
 
-	const float kRotSpeed = 0.02f;
-
-	if (input_->PushKey(DIK_A)) {
-		worldTransform_.rotation_.y -= kRotSpeed;
-	} else if (input_->PushKey(DIK_D)) {
-		worldTransform_.rotation_.y += kRotSpeed;
-	}
-
 	Attack();
 
-	if (bullet_) {
+	/*if (bullet_) {
 		bullet_->Update();
+	}*/
+
+	for (PlayerBullet* bullet : bullets_) {
+		bullet->Update();
 	}
 
 	worldTransform_.matWorld_ = MakeAffineMatrix(
@@ -97,7 +109,10 @@ void Player::Update() {
 void Player::Draw(ViewProjection& viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
 
-	if (bullet_) {
+	/*if (bullet_) {
 		bullet_->Draw(viewProjection);
+	}*/
+	for (PlayerBullet* bullet : bullets_) {
+		bullet->Draw(viewProjection);
 	}
 }
