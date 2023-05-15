@@ -2,6 +2,7 @@
 #include"Input.h"
 #include<cassert>
 #include"ImGuiManager.h"
+#include"MathUtility.h"
 
 Player::~Player() {
 	for (PlayerBullet* bullet : bullets_) {
@@ -17,8 +18,14 @@ void Player::Attack() {
 	}*/
 
 	if (input_->TriggerKey(DIK_SPACE)) {
+		const float kBulletSpeed = 1.0f;
+		Vector3 velocity(0, 0, kBulletSpeed);
+
+		//速度ベクトルを自機の向きに合わせて回転させる
+		velocity = TransformNormal(velocity,worldTransform_.matWorld_);
+
 		PlayerBullet* newBullet = new PlayerBullet();
-		newBullet->Initialize(model_,worldTransform_.translation_ );
+		newBullet->Initialize(model_,worldTransform_.translation_, velocity);
 
 		//bullet_ = newBullet;
 		bullets_.push_back(newBullet);
@@ -37,6 +44,14 @@ void Player::Initialize(Model*model,uint32_t textureHandle) {
 }
 
 void Player::Update() {
+
+	bullets_.remove_if([](PlayerBullet* bullet) {
+		if (bullet->IsDead()) {
+			delete bullet;
+			return true;
+		}
+		return false;
+	});
 
 	Vector3 move = {0, 0, 0};
 
