@@ -4,13 +4,12 @@
 #include"ImGuiManager.h"
 
 void Player::Attack() {
-	
+	/*if (bullet_) {
+		delete bullet_;
+		bullet_ = nullptr;
+	}*/
 
 	if (input_->PushKey(DIK_SPACE)) {
-		if (bullet_) {
-			delete bullet_;
-			bullet_ = nullptr;
-		}
 		PlayerBullet* newBullet = new PlayerBullet();
 		newBullet->Initialize(model_,worldTransform_.translation_ );
 
