@@ -48,4 +48,3 @@ struct WorldTransform {
 
 	void UpdateMatrix();
 };
-

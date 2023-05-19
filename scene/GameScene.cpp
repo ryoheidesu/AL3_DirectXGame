@@ -1,7 +1,7 @@
 ﻿#include "GameScene.h"
+#include "AxisIndicator.h"
 #include "TextureManager.h"
 #include <cassert>
-#include "AxisIndicator.h"
 
 GameScene::GameScene() {}
 
@@ -48,13 +48,13 @@ void GameScene::Update() {
 #endif // DEBUG
 
 	if (isDebugCameraActive_) {
-	debugCamera_->Update();
-	viewProjection_.matView = debugCamera_->GetViewProjection().matView;
-	viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
-	//
-	viewProjection_.TransferMatrix();
+		debugCamera_->Update();
+		viewProjection_.matView = debugCamera_->GetViewProjection().matView;
+		viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
+		//
+		viewProjection_.TransferMatrix();
 	} else {
-	viewProjection_.UpdateMatrix();
+		viewProjection_.UpdateMatrix();
 	}
 }
 
