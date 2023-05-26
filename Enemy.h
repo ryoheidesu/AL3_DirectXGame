@@ -19,3 +19,8 @@ private:
 
 
 };
+
+enum class Phase {
+	Approach,
+	Leave,
+};
