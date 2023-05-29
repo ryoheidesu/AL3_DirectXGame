@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "Model.h"
 #include "input.h"
+#include "EnemyBullet.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 
@@ -16,15 +17,20 @@ public:
 	void Initialize(Model* model, uint32_t textureHandle);
 	void Update();
 	void Draw(ViewProjection& viewProjection);
+	void Fire();
 
+	static const int kFireInterval = 60;
+	void ApproachInitialize();
 
 private:
 	WorldTransform worldTransform_;
 	Model* model_ = nullptr;
 	uint32_t textureHandle_ = 0u;
-	std::list<PlayerBullet*> bullets_;
+	Input* input_ = nullptr;
+	std::list<EnemyBullet*> bullets_;
 	Phase phase_ = Phase::Approach;
-
+	int32_t shotTimer_ = 60;
+	int32_t shotInterval_ = 60;
 };
 
 

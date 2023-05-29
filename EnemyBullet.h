@@ -13,6 +13,8 @@ public:
 
 	//bool IsDead() const { return isDead_; }
 
+	
+
 private:
 	WorldTransform worldTransform_;
 	Model* model_ = nullptr;
