@@ -31,6 +31,7 @@ void GameScene::Initialize() {
 	model_ = Model::Create();
 	player_->Initialize(model_, textureHandleP_);
 	enemy_->Initialize(model_, textureHandleE_);
+	enemy_->SetPlayer(player_);
 
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();

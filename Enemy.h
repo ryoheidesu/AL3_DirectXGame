@@ -5,6 +5,7 @@
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 
+class Player;
 
 class Enemy {
 
@@ -22,6 +23,8 @@ public:
 	static const int kFireInterval = 60;
 	void ApproachInitialize();
 
+	void SetPlayer(Player* player) { player_ = player; }
+
 private:
 	WorldTransform worldTransform_;
 	Model* model_ = nullptr;
@@ -31,6 +34,7 @@ private:
 	Phase phase_ = Phase::Approach;
 	int32_t shotTimer_ = 60;
 	int32_t shotInterval_ = 60;
+	Player* player_ = nullptr;
 };
 
 
