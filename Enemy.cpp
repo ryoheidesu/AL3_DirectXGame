@@ -45,13 +45,13 @@ void Enemy::Update() {
 	switch (phase_) {
 	case Phase::Approach:
 	default:
-		/*shotTimer_--;
+		shotTimer_--;
 
 		if (shotTimer_ <= 0) {
 			Fire();
 
 			shotTimer_ = kFireInterval;
-		}*/
+		}
 
 		worldTransform_.translation_.z -= 0.0f;
 
