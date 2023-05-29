@@ -33,6 +33,17 @@ void Player::Initialize(Model* model, uint32_t textureHandle) {
 
 void Player::Update() {
 
+	bullets_.remove_if([](PlayerBullet* bullet) {
+		if (bullet->IsDead()) {
+			delete bullet;
+			return true;
+		}
+		return false;
+	});
+
+
+
+
 	Vector3 move = {0, 0, 0};
 
 	// キャラクターの移動速さ
