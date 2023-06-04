@@ -3,7 +3,7 @@
 #include "Input.h"
 #include <cassert>
 #include "MathUtility.h"
-
+#include "Player.h"
 
 
 void Enemy::Initialize(Model* model, uint32_t textureHandle) {
@@ -81,9 +81,11 @@ void Enemy::Draw(ViewProjection& viewProjection) {
 
 
 void Enemy::Fire() {
+	//assert(player_);
 	const float kBulletSpeed = 1.0f;
 	Vector3 velocity(0, 0, -kBulletSpeed);
 	velocity = TransformNormal(velocity, worldTransform_.matWorld_);
+
 	EnemyBullet* newBullet = new EnemyBullet();
 	newBullet->Initialize(model_, worldTransform_.translation_, velocity);
 

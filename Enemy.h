@@ -10,6 +10,17 @@ class Player;
 class Enemy {
 
 public:
+
+	Vector3 GetWorldPosition() {
+		Vector3 worldPos;
+
+		worldPos.x = worldTransform_.translation_.x;
+		worldPos.y = worldTransform_.translation_.y;
+		worldPos.z = worldTransform_.translation_.z;
+
+		return worldPos;
+	};
+
 	enum class Phase {
 		Approach,
 		Leave,
