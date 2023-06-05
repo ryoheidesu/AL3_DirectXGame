@@ -13,6 +13,8 @@ public:
 
 	bool IsDead() const { return isDead_; }
 
+	void OnCollision();
+
 private:
 	WorldTransform worldTransform_;
 	Model* model_ = nullptr;

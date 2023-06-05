@@ -18,6 +18,7 @@ public:
 	void Draw(ViewProjection& viewProjection);
 	void Attack();
 	~Player();
+	void OnCollision();
 	
 
 private:

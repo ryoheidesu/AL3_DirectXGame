@@ -28,6 +28,7 @@ public:
 	void ApproachInitialize();
 
 	void SetPlayer(Player* player) { player_ = player; }
+	void OnCollision();
 
 private:
 	WorldTransform worldTransform_;
