@@ -30,8 +30,8 @@ void GameScene::Initialize() {
 	// モデル生成
 	model_ = Model::Create();
 	player_->Initialize(model_, textureHandleP_);
-	enemy_->Initialize(model_, textureHandleE_);
 	enemy_->SetPlayer(player_);
+	enemy_->Initialize(model_, textureHandleE_);
 
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();

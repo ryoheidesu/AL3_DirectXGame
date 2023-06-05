@@ -9,6 +9,28 @@ Player::~Player() {
 	}
 }
 
+void Player::Initialize(Model* model, uint32_t textureHandle) {
+	// nullポインタチェック
+	assert(model);
+	model_ = model;
+	worldTransform_.Initialize();
+	worldTransform_.translation_ = {0.0f, 0.0f, 0.0f};
+
+	textureHandle_ = textureHandle;
+	input_ = Input::GetInstance();
+}
+
+
+Vector3 Player::GetWorldPosition() {
+	Vector3 worldPos = {};
+
+	worldPos.x = worldTransform_.translation_.x;
+	worldPos.y = worldTransform_.translation_.y;
+	worldPos.z = worldTransform_.translation_.z;
+
+	return worldPos;
+}
+
 void Player::Attack() {
 	const float kBulletSpeed = 1.0f;
 	Vector3 velocity(0, 0, kBulletSpeed);
@@ -21,15 +43,7 @@ void Player::Attack() {
 	}
 }
 
-void Player::Initialize(Model* model, uint32_t textureHandle) {
-	// nullポインタチェック
-	assert(model);
-	model_ = model;
-	worldTransform_.Initialize();
 
-	textureHandle_ = textureHandle;
-	input_ = Input::GetInstance();
-}
 
 void Player::Update() {
 

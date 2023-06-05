@@ -11,22 +11,14 @@
 class Player {
 
 public:
-
-	Vector3 GetWorldPosition() {
-		Vector3 worldPos;
-
-		worldPos.x = worldTransform_.translation_.x;
-		worldPos.y = worldTransform_.translation_.y;
-		worldPos.z = worldTransform_.translation_.z;
-
-		return worldPos;
-	};
-
+	
+	Vector3 GetWorldPosition();
 	void Initialize(Model* model, uint32_t textureHandle);
 	void Update();
 	void Draw(ViewProjection& viewProjection);
 	void Attack();
 	~Player();
+	
 
 private:
 	WorldTransform worldTransform_;

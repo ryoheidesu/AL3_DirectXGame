@@ -19,6 +19,15 @@ void Enemy::Initialize(Model* model, uint32_t textureHandle) {
 
 }
 
+Vector3 Enemy::GetWorldPosition() {
+	Vector3 worldPos;
+
+	worldPos.x = worldTransform_.translation_.x;
+	worldPos.y = worldTransform_.translation_.y;
+	worldPos.z = worldTransform_.translation_.z;
+
+	return worldPos;
+}
 
 void Enemy::Update() {
 
@@ -81,10 +90,21 @@ void Enemy::Draw(ViewProjection& viewProjection) {
 
 
 void Enemy::Fire() {
-	//assert(player_);
+	assert(player_);
 	const float kBulletSpeed = 1.0f;
-	Vector3 velocity(0, 0, -kBulletSpeed);
-	velocity = TransformNormal(velocity, worldTransform_.matWorld_);
+	/*Vector3 velocity(0, 0, -kBulletSpeed);
+	velocity = TransformNormal(velocity, worldTransform_.matWorld_);*/
+	Vector3 a = GetWorldPosition();
+	Vector3 b = player_->GetWorldPosition();
+	Vector3 c = {};
+	c.x = b.x - a.x;
+	c.y = b.y - a.y;
+	c.z = b.z - a.z;
+	float length = sqrtf(c.x * c.x + c.y * c.y + c.z * c.z);
+	Vector3 dir = { c.x / length, c.y / length, c.z / length };
+
+	Vector3 velocity(kBulletSpeed * dir.x, kBulletSpeed * dir.y, kBulletSpeed * dir.z);
+
 
 	EnemyBullet* newBullet = new EnemyBullet();
 	newBullet->Initialize(model_, worldTransform_.translation_, velocity);
