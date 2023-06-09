@@ -2,6 +2,10 @@
 #include "AxisIndicator.h"
 #include "TextureManager.h"
 #include <cassert>
+#include <Player.h>
+#include <Enemy.h>
+#include <EnemyBullet.h>
+
 
 GameScene::GameScene() {}
 
@@ -49,6 +53,7 @@ void GameScene::Update() {
 	player_->Update();
 	// 敵キャラの更新
 	enemy_->Update();
+	CheckAllCollisions();
 
 #ifdef _DEBUG
 
@@ -116,3 +121,70 @@ void GameScene::Draw() {
 
 #pragma endregion
 }
+
+void GameScene::CheckAllCollisions() {
+	Vector3 posA,posB;
+
+	const std::list<PlayerBullet*>& playerBullets = player_->GetBullets();
+
+	const std::list<EnemyBullet*>& enemyBullets = enemy_->GetBullets();
+
+	//自キャラと敵弾の当たり判定
+	#pragma region 
+	posA = player_->GetWorldPosition();
+
+	for (EnemyBullet* bullet_ : enemyBullets) {
+		posB = bullet_->GetWorldPosition();
+		float dist = (posB.x - posA.x) * (posB.x - posA.x) + (posB.y - posA.y) * (posB.y - posA.y) +
+		             (posB.z - posA.z) * (posB.z - posA.z);
+
+		if (dist < (player_->GetRadius() + enemy_->GetRadius())) {
+			player_->OnCollision();
+
+			bullet_->OnCollision();
+		}
+	}
+
+	
+	#pragma endregion
+
+	//自弾と敵キャラの当たり判定
+	#pragma region
+	posA = enemy_->GetWorldPosition();
+
+	for (PlayerBullet* bullet_ : playerBullets) {
+		posB = bullet_->GetWorldPosition();
+		float dist = (posB.x - posA.x) * (posB.x - posA.x) + (posB.y - posA.y) * (posB.y - posA.y) +
+		             (posB.z - posA.z) * (posB.z - posA.z);
+
+		if (dist < (bullet_->GetRadius() + enemy_->GetRadius())) {
+			enemy_->OnCollision();
+
+			bullet_->OnCollision();
+		}
+	}
+	#pragma endregion
+
+	//自弾と敵弾の当たり判定
+	#pragma region
+	
+
+	for (PlayerBullet* playerbullet_ : playerBullets) {
+		for (EnemyBullet* enemybullet_ : enemyBullets) {
+			posA = enemybullet_->GetWorldPosition();
+			posB = playerbullet_->GetWorldPosition();
+			float dist = (posB.x - posA.x) * (posB.x - posA.x) +
+			             (posB.y - posA.y) * (posB.y - posA.y) +
+			             (posB.z - posA.z) * (posB.z - posA.z);
+
+			if (dist < (playerbullet_->GetRadius() + enemybullet_->GetRadius())) {
+				enemybullet_->OnCollision();
+				playerbullet_->OnCollision();
+			}
+
+		}
+		
+	}
+	#pragma endregion
+}
+

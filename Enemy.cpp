@@ -31,13 +31,13 @@ Vector3 Enemy::GetWorldPosition() {
 
 void Enemy::Update() {
 
-	/*bullets_.remove_if([](PlayerBullet* bullet) {
+	bullets_.remove_if([](EnemyBullet* bullet) {
 		if (bullet->IsDead()) {
 			delete bullet;
 			return true;
 		}
 		return false;
-	});*/
+	});
 
 	Vector3 move = {0, 0, 0};
 
@@ -62,7 +62,7 @@ void Enemy::Update() {
 			shotTimer_ = kFireInterval;
 		}
 
-		worldTransform_.translation_.z -= 0.3f;
+		worldTransform_.translation_.z -= 0.0f;
 
 		if (worldTransform_.translation_.z < 0.0f) {
 			phase_ = Phase::Leave;
@@ -114,4 +114,8 @@ void Enemy::Fire() {
 
 void Enemy::ApproachInitialize() {
 	shotTimer_ = shotInterval_;
+}
+
+void Enemy::OnCollision() {
+
 }

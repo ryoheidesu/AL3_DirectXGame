@@ -19,7 +19,8 @@ public:
 	void Attack();
 	~Player();
 	void OnCollision();
-	
+	const std::list<PlayerBullet*>& GetBullets() { return bullets_; }
+	float GetRadius() { return radius_; }
 
 private:
 	WorldTransform worldTransform_;
@@ -27,4 +28,5 @@ private:
 	uint32_t textureHandle_ = 0u;
 	Input* input_ = nullptr;
 	std::list<PlayerBullet*> bullets_;
+	float radius_ = 1.0f;
 };

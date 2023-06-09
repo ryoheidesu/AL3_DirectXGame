@@ -29,6 +29,8 @@ public:
 
 	void SetPlayer(Player* player) { player_ = player; }
 	void OnCollision();
+	const std::list<EnemyBullet*>& GetBullets() { return bullets_; }
+	float GetRadius() { return radius_; }
 
 private:
 	WorldTransform worldTransform_;
@@ -40,6 +42,7 @@ private:
 	int32_t shotTimer_ = 60;
 	int32_t shotInterval_ = 60;
 	Player* player_ = nullptr;
+	float radius_ = 1.0f;
 };
 
 

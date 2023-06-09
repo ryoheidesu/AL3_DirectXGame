@@ -5,6 +5,9 @@
 class PlayerBullet {
 
 public:
+
+	Vector3 GetWorldPosition();
+
 	void Initialize(Model* model, const Vector3& position, const Vector3& velocity);
 
 	void Update();
@@ -15,6 +18,8 @@ public:
 
 	void OnCollision();
 
+	float GetRadius() { return radius_; }
+
 private:
 	WorldTransform worldTransform_;
 	Model* model_ = nullptr;
@@ -24,4 +29,5 @@ private:
 	static const int32_t kLifeTime = 60 * 5;
 	int32_t deathTimer_ = kLifeTime;
 	bool isDead_ = false;
+	float radius_ = 1.0f;
 };

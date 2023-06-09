@@ -127,3 +127,7 @@ void Player::Draw(ViewProjection& viewProjection) {
 		bullet->Draw(viewProjection);
 	}
 }
+void Player::OnCollision() {
+
+
+}
