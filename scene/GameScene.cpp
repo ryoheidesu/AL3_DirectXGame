@@ -14,6 +14,8 @@ GameScene::~GameScene() {
 	delete player_;
 	delete enemy_;
 	delete debugCamera_;
+	delete skydome_;
+	delete modelSkydome_;
 }
 
 void GameScene::Initialize() {
@@ -28,6 +30,12 @@ void GameScene::Initialize() {
 	enemy_ = new Enemy();
 	// 敵キャラの初期化
 	textureHandleE_ = TextureManager::Load("sample.png");
+	// 天球の生成
+	skydome_ = new Skydome();
+	
+	
+	// ビュープロジェクションの初期化
+	
 
 
 	// 読み込み
@@ -36,6 +44,11 @@ void GameScene::Initialize() {
 	player_->Initialize(model_, textureHandleP_);
 	enemy_->SetPlayer(player_);
 	enemy_->Initialize(model_, textureHandleE_);
+	
+	//3Dモデルの生成
+	modelSkydome_ = Model::CreateFromOBJ("skydome", true);
+	//　天球の初期化
+	skydome_->Initialize(modelSkydome_);
 
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
@@ -46,6 +59,9 @@ void GameScene::Initialize() {
 	AxisIndicator::GetInstance()->SetVisible(true);
 
 	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
+
+	/*viewProjection_.farZ = 10.0f;
+	viewProjection_.Initialize();*/
 }
 
 void GameScene::Update() {
@@ -103,6 +119,8 @@ void GameScene::Draw() {
 	player_->Draw(viewProjection_);
 	// 敵キャラの描画
 	enemy_->Draw(viewProjection_);
+	// 天球の描画
+	skydome_->Draw(viewProjection_);
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
