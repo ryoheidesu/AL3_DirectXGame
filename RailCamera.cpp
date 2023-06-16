@@ -1,11 +1,11 @@
-#include "RailCamera.h"
-
-void RailCamera::Initialize(Model* model, const Vector3& position) {
-	worldTransform_.Initialize();
-	model_ = model;
-
-}
-
-void RailCamera::Update() {
-
-}
+//#include "RailCamera.h"
+//
+//void RailCamera::Initialize(Vector3 trans, Vector3 rot) {
+//	worldTransform_.Initialize();
+//	
+//
+//}
+//
+//void RailCamera::Update() {
+//
+//}

@@ -6,7 +6,7 @@
 class RailCamera {
 public:
 
-	void Initialize(Model* model, const Vector3& position);
+	void Initialize(Vector3 trans,Vector3 rot);
 
 
 	void Update();
@@ -14,5 +14,5 @@ public:
 private:
 	WorldTransform worldTransform_;
 	ViewProjection viewProjection_;
-	Model* model_ = nullptr;
+	
 };
