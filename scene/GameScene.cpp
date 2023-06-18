@@ -16,9 +16,13 @@ GameScene::~GameScene() {
 	delete debugCamera_;
 	delete skydome_;
 	delete modelSkydome_;
+
+	
 }
 
 void GameScene::Initialize() {
+
+	Vector3 playerPosition{0, 0, 20};
 
 	worldTransform_.Initialize();
 	viewProjection_.Initialize();
@@ -42,6 +46,8 @@ void GameScene::Initialize() {
 	// モデル生成
 	model_ = Model::Create();
 	player_->Initialize(model_, textureHandleP_);
+	
+	//player_->SetParent(&railcamera_->GetWorldTransform());
 	enemy_->SetPlayer(player_);
 	enemy_->Initialize(model_, textureHandleE_);
 	

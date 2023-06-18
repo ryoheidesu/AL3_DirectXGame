@@ -21,6 +21,7 @@ public:
 	void OnCollision();
 	const std::list<PlayerBullet*>& GetBullets() { return bullets_; }
 	float GetRadius() { return radius_; }
+	void SetParent(const WorldTransform* parent);
 
 private:
 	WorldTransform worldTransform_;
