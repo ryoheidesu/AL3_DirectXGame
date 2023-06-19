@@ -7,7 +7,7 @@ void RailCamera::Initialize(Vector3 trans, Vector3 rot) {
 	worldTransform_.translation_ = trans;
 	worldTransform_.rotation_ = rot;
 	worldTransform_.Initialize();
-	//viewProjection_.farZ = 100;
+	viewProjection_.farZ = 500;
 	viewProjection_.Initialize();
 	
 }

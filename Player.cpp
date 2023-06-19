@@ -31,7 +31,7 @@ Vector3 Player::GetWorldPosition() {
 	return worldPos;
 }
 
-//void Player::SetParent(const WorldTransform* parent) { worldTransform_.parent_ = parent; }
+void Player::SetParent(const WorldTransform* parent) { worldTransform_.parent_ = parent; }
 
 
 void Player::Attack() {
