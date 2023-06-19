@@ -23,12 +23,13 @@ GameScene::~GameScene() {
 
 void GameScene::Initialize() {
 
-	//Vector3 playerPosition{0, 0, 20};
+	
 
 	worldTransform_.Initialize();
 	viewProjection_.Initialize();
 	// 自キャラの生成
 	player_ = new Player();
+	Vector3 playerPosition{0, 0, 50};
 	// 自キャラの初期化
 	textureHandleP_ = TextureManager::Load("sample.png");
 	// 敵キャラの生成
@@ -48,9 +49,8 @@ void GameScene::Initialize() {
 	// 読み込み
 	// モデル生成
 	model_ = Model::Create();
-	player_->Initialize(model_, textureHandleP_);
-	
-	//player_->SetParent(&railCamera_->GetWorldTransform());
+	player_->Initialize(model_, textureHandleP_, playerPosition);
+	player_->SetParent(&railCamera_->GetWorldTransform());
 	enemy_->SetPlayer(player_);
 	enemy_->Initialize(model_, textureHandleE_);
 	

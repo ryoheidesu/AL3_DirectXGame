@@ -13,7 +13,7 @@ class Player {
 public:
 	
 	Vector3 GetWorldPosition();
-	void Initialize(Model* model, uint32_t textureHandle);
+	void Initialize(Model* model, uint32_t textureHandle,const Vector3& trans);
 	void Update();
 	void Draw(ViewProjection& viewProjection);
 	void Attack();

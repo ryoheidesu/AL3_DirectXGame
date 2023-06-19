@@ -9,7 +9,7 @@ Player::~Player() {
 	}
 }
 
-void Player::Initialize(Model* model, uint32_t textureHandle) {
+void Player::Initialize(Model* model, uint32_t textureHandle, const Vector3& trans) {
 	// nullポインタチェック
 	assert(model);
 	model_ = model;
@@ -18,6 +18,7 @@ void Player::Initialize(Model* model, uint32_t textureHandle) {
 
 	textureHandle_ = textureHandle;
 	input_ = Input::GetInstance();
+	worldTransform_.translation_ = trans;
 }
 
 

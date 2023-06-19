@@ -13,16 +13,16 @@ void RailCamera::Initialize(Vector3 trans, Vector3 rot) {
 }
 
 void RailCamera::Update() {
-	//Vector3 move = {0.0f, 0.0f, 0.0f};
-	//Vector3 rot = {0.0f, 0.01f, 0.0f};
+	Vector3 move = {0.0f, 0.0f, 0.0f};
+	Vector3 rot = {0.0f, 0.01f, 0.0f};
 
-	//worldTransform_.translation_.x += move.x;
-	//worldTransform_.translation_.y += move.y;
+	worldTransform_.translation_.x += move.x;
+	worldTransform_.translation_.y += move.y;
 	worldTransform_.translation_.z -= 0.5;
 
-	//worldTransform_.rotation_.x += rot.x;
-	//worldTransform_.rotation_.y += rot.y;
-	//worldTransform_.rotation_.z += rot.z;
+	worldTransform_.rotation_.x += rot.x;
+	worldTransform_.rotation_.y += rot.y;
+	worldTransform_.rotation_.z += rot.z;
 	
 	
 
