@@ -79,7 +79,7 @@ private: // メンバ変数
 
 	Model* modelSkydome_ = nullptr;
 
-
+	RailCamera* railCamera_ = nullptr;
 
 
 };

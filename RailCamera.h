@@ -2,6 +2,7 @@
 #include "Model.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
+#include "Matrix4x4.h"
 
 class RailCamera {
 public:
@@ -10,6 +11,10 @@ public:
 
 
 	void Update();
+
+
+	ViewProjection GetViewProjection() { return viewProjection_; }
+
 
 private:
 	WorldTransform worldTransform_;
