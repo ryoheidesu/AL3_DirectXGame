@@ -18,7 +18,7 @@ void RailCamera::Update() {
 
 	//worldTransform_.translation_.x += move.x;
 	//worldTransform_.translation_.y += move.y;
-	worldTransform_.translation_.z += 0.5;
+	worldTransform_.translation_.z -= 0.5;
 
 	//worldTransform_.rotation_.x += rot.x;
 	//worldTransform_.rotation_.y += rot.y;

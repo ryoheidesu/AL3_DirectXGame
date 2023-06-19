@@ -23,7 +23,7 @@ GameScene::~GameScene() {
 
 void GameScene::Initialize() {
 
-	Vector3 playerPosition{0, 0, 20};
+	//Vector3 playerPosition{0, 0, 20};
 
 	worldTransform_.Initialize();
 	viewProjection_.Initialize();
@@ -84,7 +84,7 @@ void GameScene::Update() {
 	railCamera_->Update();
 #ifdef _DEBUG
 
-	if (input_->TriggerKey(DIK_SPACE)) {
+	if (input_->TriggerKey(DIK_RETURN)) {
 		isDebugCameraActive_ = true;
 	}
 #endif // DEBUG
@@ -95,7 +95,7 @@ void GameScene::Update() {
 		viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
 
 		viewProjection_.matView = railCamera_->GetViewProjection().matView;
-		viewProjection_.matView = railCamera_->GetViewProjection().matProjection;
+		viewProjection_.matProjection = railCamera_->GetViewProjection().matProjection;
 
 		//
 		viewProjection_.TransferMatrix();
