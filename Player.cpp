@@ -25,9 +25,9 @@ void Player::Initialize(Model* model, uint32_t textureHandle, const Vector3& tra
 Vector3 Player::GetWorldPosition() {
 	Vector3 worldPos = {};
 
-	worldPos.x = worldTransform_.translation_.x;
-	worldPos.y = worldTransform_.translation_.y;
-	worldPos.z = worldTransform_.translation_.z;
+	worldPos.x = worldTransform_.matWorld_.m[3][0];
+	worldPos.y = worldTransform_.matWorld_.m[3][1];
+	worldPos.z = worldTransform_.matWorld_.m[3][2];
 
 	return worldPos;
 }
@@ -41,8 +41,8 @@ void Player::Attack() {
 	velocity = TransformNormal(velocity, worldTransform_.matWorld_);
 	if (input_->TriggerKey(DIK_SPACE)) {
 		PlayerBullet* newBullet = new PlayerBullet();
-		newBullet->Initialize(model_, worldTransform_.translation_, velocity);
-
+		newBullet->Initialize(model_, GetWorldPosition(), velocity);
+		
 		bullets_.push_back(newBullet);
 	}
 }
@@ -103,6 +103,10 @@ void Player::Update() {
 
 	worldTransform_.matWorld_ = MakeAffineMatrix(
 	    worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
+	//親子関係
+	if (worldTransform_.parent_) {
+		worldTransform_.matWorld_ *= worldTransform_.parent_->matWorld_;
+	}
 
 	const float kMoveLimitX = 30.0f;
 	const float kMoveLimitY = 30.0f;

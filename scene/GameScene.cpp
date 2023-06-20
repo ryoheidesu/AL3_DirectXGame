@@ -83,24 +83,29 @@ void GameScene::Update() {
 	CheckAllCollisions();
 	railCamera_->Update();
 #ifdef _DEBUG
-
+	//デバックカメラキー
 	if (input_->TriggerKey(DIK_RETURN)) {
 		isDebugCameraActive_ = true;
 	}
+	
 #endif // DEBUG
 
 	if (isDebugCameraActive_) {
 		debugCamera_->Update();
-		viewProjection_.matView = debugCamera_->GetViewProjection().matView;
-		viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
 
-		viewProjection_.matView = railCamera_->GetViewProjection().matView;
-		viewProjection_.matProjection = railCamera_->GetViewProjection().matProjection;
+		/*viewProjection_.matView = debugCamera_->GetViewProjection().matView;
+		viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;*/
+
+		
 
 		//
-		viewProjection_.TransferMatrix();
+		
 	} else {
-		viewProjection_.UpdateMatrix();
+		viewProjection_.matView = railCamera_->GetViewProjection().matView;
+		viewProjection_.matProjection = railCamera_->GetViewProjection().matProjection;
+		//viewProjection_.UpdateMatrix();
+		viewProjection_.TransferMatrix();
+
 	}
 
 	

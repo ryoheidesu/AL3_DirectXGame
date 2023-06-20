@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "Input.h"
 #include "MathUtility.h"
@@ -12,15 +12,62 @@ class Player {
 
 public:
 	
+	/// <summary>
+	/// ワールド座標
+	/// </summary>
+	/// <returns></returns>
 	Vector3 GetWorldPosition();
+
+	/// <summary>
+	/// 初期化
+	/// </summary>
+	/// <param name="model"></param>
+	/// <param name="textureHandle"></param>
+	/// <param name="trans"></param>
 	void Initialize(Model* model, uint32_t textureHandle,const Vector3& trans);
+
+	/// <summary>
+	/// 更新
+	/// </summary>
 	void Update();
+
+	/// <summary>
+	/// 描画
+	/// </summary>
+	/// <param name="viewProjection"></param>
 	void Draw(ViewProjection& viewProjection);
+
+	/// <summary>
+	///　攻撃
+	/// </summary>
 	void Attack();
+
+	/// <summary>
+	/// 自機デストラクタ
+	/// </summary>
 	~Player();
+
+	/// <summary>
+	/// 当たり判定
+	/// </summary>
 	void OnCollision();
+
+	/// <summary>
+	/// 自機の弾
+	/// </summary>
+	/// <returns></returns>
 	const std::list<PlayerBullet*>& GetBullets() { return bullets_; }
+
+	/// <summary>
+	/// 半径
+	/// </summary>
+	/// <returns></returns>
 	float GetRadius() { return radius_; }
+	
+	/// <summary>
+	/// 親子関係を作る
+	/// </summary>
+	/// <param name="parent"></param>
 	void SetParent(const WorldTransform* parent);
 
 private:
