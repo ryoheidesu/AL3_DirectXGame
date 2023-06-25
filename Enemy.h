@@ -6,6 +6,7 @@
 #include "WorldTransform.h"
 
 class Player;
+class GameScene;
 
 class Enemy {
 
@@ -32,7 +33,10 @@ public:
 	const std::list<EnemyBullet*>& GetBullets() { return bullets_; }
 	float GetRadius() { return radius_; }
 
+	void SetGameScene(GameScene* gamescene) { gamescene_ = gamescene; }
+
 private:
+	GameScene* gamescene_ = nullptr;
 	WorldTransform worldTransform_;
 	Model* model_ = nullptr;
 	uint32_t textureHandle_ = 0u;

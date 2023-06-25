@@ -21,6 +21,8 @@ GameScene::~GameScene() {
 	
 }
 
+
+
 void GameScene::Initialize() {
 
 	
@@ -53,6 +55,7 @@ void GameScene::Initialize() {
 	player_->SetParent(&railCamera_->GetWorldTransform());
 	enemy_->SetPlayer(player_);
 	enemy_->Initialize(model_, textureHandleE_);
+	enemy_->SetGameScene(this);
 	
 	//3Dモデルの生成
 	modelSkydome_ = Model::CreateFromOBJ("skydome", true);
@@ -73,6 +76,8 @@ void GameScene::Initialize() {
 	viewProjection_.Initialize();*/
 	//レールカメラ初期化
 	railCamera_->Initialize(worldTransform_.translation_, worldTransform_.rotation_);
+
+
 }
 
 void GameScene::Update() {
@@ -162,6 +167,22 @@ void GameScene::Draw() {
 #pragma endregion
 }
 
+//ファイル読み込み
+//void GameScene::LoadEnemyPopData() {
+//
+//	std::ifstream file;
+//	file.open("./Resources/EnemyPop.csv");
+//	assert(file.is_open());
+//
+//	enemyPopCommands << file.rdbuf();
+//
+//	file.close();
+//}
+
+
+
+//void GameScene::AddEnemyBullet(EnemyBullet* enemyBullet) { enemyBullets_.push_back(enemyBullet); }
+
 void GameScene::CheckAllCollisions() {
 	Vector3 posA,posB;
 
@@ -226,5 +247,52 @@ void GameScene::CheckAllCollisions() {
 		
 	}
 	#pragma endregion
+
+
 }
 
+//void GameScene::UpdateEnemyPopCommands() {
+//
+//	if (waitFlag) {
+//		waitTimer--;
+//		if (waitTimer <= 0) {
+//			waitFlag = false;
+//		}
+//		return;
+//	}
+//
+//	std::string line;
+//	while (getline(enemyPopCommands, line)) {
+//		std::istringstream line_stream(line);
+//
+//		std::string word;
+//
+//		getline(line_stream, word, ',');
+//
+//		if (word.find("//") == 0) {
+//			continue;
+//		}
+//
+//		if (word.find("POP") == 0) {
+//			getline(line_stream, word, ',');
+//			float x = (float)std::atof(word.c_str());
+//
+//			getline(line_stream, word, ',');
+//			float y = (float)std::atof(word.c_str());
+//
+//			getline(line_stream, word, ',');
+//			float z = (float)std::atof(word.c_str());
+//
+//			AddEnemy(Vector3(x, y, z));
+//		} else if (word.find("WAIT") == 0) {
+//			getline(line_stream, word, ',');
+//
+//			int32_t waitTime = atoi(word.c_str());
+//
+//			waitFlag = true;
+//			waitTimer = waitTime;
+//
+//			break;
+//		}
+//	}
+//}
