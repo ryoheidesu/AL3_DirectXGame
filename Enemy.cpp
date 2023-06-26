@@ -4,6 +4,7 @@
 #include <cassert>
 #include "MathUtility.h"
 #include "Player.h"
+#include "GameScene.h"
 
 
 void Enemy::Initialize(Model* model, uint32_t textureHandle) {
@@ -14,7 +15,6 @@ void Enemy::Initialize(Model* model, uint32_t textureHandle) {
 	textureHandle_ = textureHandle;
 	worldTransform_.translation_.y = 3.0f;
 	worldTransform_.translation_.z = 50.0f;
-	Fire();
 	ApproachInitialize();
 
 }
@@ -31,14 +31,8 @@ Vector3 Enemy::GetWorldPosition() {
 
 void Enemy::Update() {
 
-	bullets_.remove_if([](EnemyBullet* bullet) {
-		if (bullet->IsDead()) {
-			delete bullet;
-			return true;
-		}
-		return false;
-	});
-
+	
+	//移動
 	Vector3 move = {0, 0, 0};
 
 	// キャラクターの移動速さ
@@ -75,17 +69,13 @@ void Enemy::Update() {
 		break;
 	}
 
-	for (EnemyBullet* bullet : bullets_) {
-		bullet->Update();
-	}
+	
 }
 
 
 void Enemy::Draw(ViewProjection& viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
-	for (EnemyBullet* bullet : bullets_) {
-		bullet->Draw(viewProjection);
-	}
+	
 }
 
 
@@ -109,7 +99,7 @@ void Enemy::Fire() {
 	EnemyBullet* newBullet = new EnemyBullet();
 	newBullet->Initialize(model_, worldTransform_.translation_, velocity);
 
-	bullets_.push_back(newBullet);
+	gamescene_->AddEnemyBullet(newBullet);
 }
 
 void Enemy::ApproachInitialize() {

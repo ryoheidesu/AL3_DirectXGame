@@ -47,6 +47,13 @@ public: // メンバ関数
 	/// </summary>
 	/// <param name="enemybullet"></param>
 	void AddEnemyBullet(EnemyBullet* enemyBullet);
+
+	/// <summary>
+	/// 敵を追加
+	/// </summary>
+	/// <param name="enemybullet"></param>
+	void AddEnemy(Enemy* enemy);
+
 	/// <summary>
 	/// 描画
 	/// </summary>
@@ -65,10 +72,13 @@ public: // メンバ関数
 	/// </summary>
 	void UpdateEnemyPopCommands();
 
+	//敵発生コマンド
 	std::stringstream enemyPopCommands;
 
 
-private: // メンバ変数
+private:
+	
+	// メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
@@ -89,7 +99,9 @@ private: // メンバ変数
 
 	Player* player_ = nullptr;
 
-	Enemy* enemy_ = nullptr;
+	std::list<Enemy*> enemys_;
+	//敵弾
+	std::list<EnemyBullet*> enemyBullets_;
 
 	bool isDebugCameraActive_ = false;
 
@@ -100,6 +112,10 @@ private: // メンバ変数
 	Model* modelSkydome_ = nullptr;
 
 	RailCamera* railCamera_ = nullptr;
+
+	bool waitFlag = false;
+
+
 
 
 };

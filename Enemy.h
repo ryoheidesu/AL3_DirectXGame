@@ -30,7 +30,7 @@ public:
 
 	void SetPlayer(Player* player) { player_ = player; }
 	void OnCollision();
-	const std::list<EnemyBullet*>& GetBullets() { return bullets_; }
+	
 	float GetRadius() { return radius_; }
 
 	void SetGameScene(GameScene* gamescene) { gamescene_ = gamescene; }
@@ -41,7 +41,6 @@ private:
 	Model* model_ = nullptr;
 	uint32_t textureHandle_ = 0u;
 	Input* input_ = nullptr;
-	std::list<EnemyBullet*> bullets_;
 	Phase phase_ = Phase::Approach;
 	int32_t shotTimer_ = 60;
 	int32_t shotInterval_ = 60;
