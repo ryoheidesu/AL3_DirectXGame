@@ -115,7 +115,7 @@ private:
 
 	bool waitFlag = false;
 
-
+	int waitTimer = 0;
 
 
 };
