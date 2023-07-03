@@ -51,7 +51,7 @@ void GameScene::Initialize() {
 	//レールカメラの生成
 	railCamera_ = new RailCamera();
 	
-	
+	LoadEnemyPopData();
 	
 	
 
@@ -68,6 +68,7 @@ void GameScene::Initialize() {
 	//敵キャラにゲームシーンを渡す
 	newEnemy->SetGameScene(this);
 	enemys_.push_back(newEnemy);
+	
 	
 	//3Dモデルの生成
 	modelSkydome_ = Model::CreateFromOBJ("skydome", true);
@@ -100,6 +101,8 @@ void GameScene::Update() {
 		enemy->Update();
 	}
 	
+	UpdateEnemyPopCommands();
+
 	CheckAllCollisions();
 	railCamera_->Update();
 #ifdef _DEBUG
@@ -216,7 +219,13 @@ void GameScene::LoadEnemyPopData() {
 	file.close();
 }
 
-
+void GameScene::AddEnemy(Vector3 pos) {
+	Enemy* enemy = new Enemy();
+	enemy->Initialize(model_, textureHandleE_, pos);
+	enemy->SetPlayer(player_);
+	enemy->SetGameScene(this);
+	enemys_.push_back(enemy);
+}
 
 void GameScene::AddEnemyBullet(EnemyBullet* enemyBullet) { enemyBullets_.push_back(enemyBullet); }
 
@@ -324,7 +333,8 @@ void GameScene::UpdateEnemyPopCommands() {
 			float z = (float)std::atof(word.c_str());
 
 			AddEnemy(Vector3(x, y, z));
-		} else if (word.find("WAIT") == 0) {
+		} 
+		else if (word.find("WAIT") == 0) {
 			getline(line_stream, word, ',');
 
 			int32_t waitTime = atoi(word.c_str());

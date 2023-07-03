@@ -19,6 +19,18 @@ void Enemy::Initialize(Model* model, uint32_t textureHandle) {
 
 }
 
+void Enemy::Initialize(Model* model, uint32_t textureHandle, const Vector3& pos) {
+	assert(model);
+	model_ = model;
+	worldTransform_.Initialize();
+
+	
+	textureHandle_ = textureHandle;
+	worldTransform_.translation_ = pos;
+	worldTransform_.translation_ = pos;
+	ApproachInitialize();
+}
+
 Vector3 Enemy::GetWorldPosition() {
 	Vector3 worldPos;
 

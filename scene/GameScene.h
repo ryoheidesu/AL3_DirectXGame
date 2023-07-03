@@ -36,12 +36,15 @@ public: // メンバ関数
 	/// </summary>
 	void Initialize();
 
+
+	
+
 	/// <summary>
 	/// 毎フレーム処理
 	/// </summary>
 	void Update();
 
-
+	
 	/// <summary>
 	/// 敵弾を追加
 	/// </summary>
@@ -53,6 +56,8 @@ public: // メンバ関数
 	/// </summary>
 	/// <param name="enemybullet"></param>
 	void AddEnemy(Enemy* enemy);
+	
+	void AddEnemy(Vector3 pos);
 
 	/// <summary>
 	/// 描画
@@ -115,7 +120,7 @@ private:
 
 	bool waitFlag = false;
 
-	int waitTimer = 0;
+	int waitTimer = 120;
 
 
 };
