@@ -7,6 +7,7 @@ Player::~Player() {
 	for (PlayerBullet* bullet : bullets_) {
 		delete bullet;
 	}
+	delete sprite2DReticle_;
 }
 
 void Player::Initialize(Model* model, uint32_t textureHandle, const Vector3& trans) {
@@ -17,7 +18,17 @@ void Player::Initialize(Model* model, uint32_t textureHandle, const Vector3& tra
 	worldTransform_.translation_ = {0.0f, 0.0f, 0.0f};
 
 	textureHandle_ = textureHandle;
+
+	// レティクル用テクスチャ取得
+	uint32_t textureReticle = TextureManager::Load("target.png");
+
+	// スプライト生成
+	sprite2DReticle_ = Sprite::Create(textureReticle, {640, 360}, {1, 1, 1, 1}, {(0.5f), (0.5f)});
+
+
 	input_ = Input::GetInstance();
+	//3Dレティクルのワールドトランスフォーム初期化
+	worldTransform3Dreticle_.Initialize();
 	worldTransform_.translation_ = trans;
 }
 
@@ -50,6 +61,24 @@ void Player::Attack() {
 
 
 void Player::Update() {
+
+	//Vector3 positionReticle = worldTransform3Dreticle_.translation_;
+
+	//// ビューポート行列
+	//Matrix4x4 matViewport =
+	//    MakeViewportMatrix(0, 0, WinApp::kWindowWidth, WinApp::kWindowHeight, 0, 1);
+
+	//// ビュー行列とプロジェクション行列、ビューポート行列を合成する
+	//Matrix4x4 matViewProjectionViewport =
+	//    viewProjection.matView * viewProjection.matProjection * matViewport;
+
+	//// ワールド→スクリーン座標行列(ここで2Dから3Dになる)
+	//positionReticle = Transform(positionReticle, matViewProjectionViewport);
+
+	//// スプライトのレティクルに座標設定
+	//sprite2DReticle_->SetPosition(Vector2(positionReticle.x, positionReticle.y));
+
+
 
 	bullets_.remove_if([](PlayerBullet* bullet) {
 		if (bullet->IsDead()) {
@@ -126,6 +155,28 @@ void Player::Update() {
 	ImGui::SliderFloat3("position", sliderValue, -20.0f, 20.0f);
 	worldTransform_.translation_ = {sliderValue[0], sliderValue[1], sliderValue[2]};
 	ImGui::End();
+
+
+	// 自機から3Dレティクルへの距離
+	const float kDistancePlayerTo3DReticle = 50.0f;
+	// 自機から3Dレティクルへのオフセット(Z+向き)
+	Vector3 offset = {0, 0, 1.0f};
+	// 自機のワールド行列の回転を反映
+	offset = TransformNormal(offset, worldTransform_.matWorld_);
+	// ベクトルの長さを整える
+	float length = sqrtf((offset.x * offset.x) + (offset.y * offset.y) + (offset.z * offset.z));
+	Vector3 dir(offset.x / length, offset.y / length, offset.z / length);
+	offset = {
+	    dir.x * kDistancePlayerTo3DReticle,
+	    dir.y * kDistancePlayerTo3DReticle,
+	    dir.z * kDistancePlayerTo3DReticle,
+	};
+	// 3Dレティクルの座標を設定
+	worldTransform3Dreticle_.translation_ = {
+	    worldTransform_.translation_.x + offset.x, worldTransform_.translation_.y + offset.y,
+	    worldTransform_.translation_.z + offset.z};
+	worldTransform3Dreticle_.UpdateMatrix();
+
 }
 
 void Player::Draw(ViewProjection& viewProjection) {

@@ -12,6 +12,8 @@ class Player {
 
 public:
 	
+	
+
 	/// <summary>
 	/// ワールド座標
 	/// </summary>
@@ -36,6 +38,7 @@ public:
 	/// </summary>
 	/// <param name="viewProjection"></param>
 	void Draw(ViewProjection& viewProjection);
+	void DrawUI();
 
 	/// <summary>
 	///　攻撃
@@ -77,4 +80,8 @@ private:
 	Input* input_ = nullptr;
 	std::list<PlayerBullet*> bullets_;
 	float radius_ = 1.0f;
+	// 3Dレティクル用ワールドトランスフォーム
+	WorldTransform worldTransform3Dreticle_;
+	// 2Dレティクル用スプライト
+	Sprite* sprite2DReticle_ = nullptr;
 };
