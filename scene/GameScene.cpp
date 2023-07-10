@@ -38,7 +38,7 @@ void GameScene::Initialize() {
 	viewProjection_.Initialize();
 
 	// レティクルのテクスチャ
-	TextureManager::Load("target.png");
+	//TextureManager::Load("target.png");
 	// 自キャラの生成
 	player_ = new Player();
 	Vector3 playerPosition{0, 0, 50};
@@ -203,7 +203,7 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
-	player_->DrawUI();
+	//player_->DrawUI();
 
 	// スプライト描画後処理
 	Sprite::PostDraw();

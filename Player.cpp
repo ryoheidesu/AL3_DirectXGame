@@ -19,7 +19,7 @@ void Player::Initialize(Model* model, uint32_t textureHandle, const Vector3& tra
 
 	textureHandle_ = textureHandle;
 
-	// レティクル用テクスチャ取得
+	//レティクル用テクスチャ取得
 	uint32_t textureReticle = TextureManager::Load("target.png");
 
 	// スプライト生成
@@ -62,21 +62,21 @@ void Player::Attack() {
 
 void Player::Update() {
 
-	//Vector3 positionReticle = worldTransform3Dreticle_.translation_;
+	Vector3 positionReticle = worldTransform3Dreticle_.translation_;
 
-	//// ビューポート行列
-	//Matrix4x4 matViewport =
-	//    MakeViewportMatrix(0, 0, WinApp::kWindowWidth, WinApp::kWindowHeight, 0, 1);
+	// ビューポート行列
+	Matrix4x4 matViewport =
+	    MakeViewportMatrix(0, 0, WinApp::kWindowWidth, WinApp::kWindowHeight, 0, 1);
 
-	//// ビュー行列とプロジェクション行列、ビューポート行列を合成する
-	//Matrix4x4 matViewProjectionViewport =
-	//    viewProjection.matView * viewProjection.matProjection * matViewport;
+	// ビュー行列とプロジェクション行列、ビューポート行列を合成する
+	Matrix4x4 matViewProjectionViewport =
+	    viewProjection.matView * viewProjection.matProjection * matViewport;
 
-	//// ワールド→スクリーン座標行列(ここで2Dから3Dになる)
-	//positionReticle = Transform(positionReticle, matViewProjectionViewport);
+	// ワールド→スクリーン座標行列(ここで2Dから3Dになる)
+	positionReticle = Transform(positionReticle, matViewProjectionViewport);
 
-	//// スプライトのレティクルに座標設定
-	//sprite2DReticle_->SetPosition(Vector2(positionReticle.x, positionReticle.y));
+	// スプライトのレティクルに座標設定
+	sprite2DReticle_->SetPosition(Vector2(positionReticle.x, positionReticle.y));
 
 
 
@@ -181,7 +181,8 @@ void Player::Update() {
 
 void Player::Draw(ViewProjection& viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
-
+	//3Dレティクルを描画
+	model_->Draw(worldTransform3Dreticle_, viewProjection);
 	for (PlayerBullet* bullet : bullets_) {
 		bullet->Draw(viewProjection);
 	}

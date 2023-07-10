@@ -38,7 +38,7 @@ public:
 	/// </summary>
 	/// <param name="viewProjection"></param>
 	void Draw(ViewProjection& viewProjection);
-	void DrawUI();
+	//void DrawUI();
 
 	/// <summary>
 	///　攻撃
@@ -83,5 +83,5 @@ private:
 	// 3Dレティクル用ワールドトランスフォーム
 	WorldTransform worldTransform3Dreticle_;
 	// 2Dレティクル用スプライト
-	Sprite* sprite2DReticle_ = nullptr;
+	//Sprite* sprite2DReticle_ = nullptr;
 };
