@@ -2,6 +2,7 @@
 #include "ImGuiManager.h"
 #include "Input.h"
 #include <cassert>
+#include "MathUtility.h"
 
 Player::~Player() {
 	for (PlayerBullet* bullet : bullets_) {
@@ -60,9 +61,12 @@ void Player::Attack() {
 
 
 
-void Player::Update() {
+void Player::Update(ViewProjection& viewProjection) {
 
-	Vector3 positionReticle = worldTransform3Dreticle_.translation_;
+	//Vector3 positionReticle = worldTransform3Dreticle_.translation_;
+	Vector3 positionReticle = {
+	    worldTransform3Dreticle_.matWorld_.m[3][0], worldTransform3Dreticle_.matWorld_.m[3][1],
+	    worldTransform3Dreticle_.matWorld_.m[3][2]};
 
 	// ビューポート行列
 	Matrix4x4 matViewport =
@@ -118,9 +122,9 @@ void Player::Update() {
 
 	const float kRotSpeed = 0.02f;
 
-	if (input_->PushKey(DIK_A)) {
+	if (input_->PushKey(DIK_D)) {
 		worldTransform_.rotation_.y += kRotSpeed;
-	} else if (input_->PushKey(DIK_D)) {
+	} else if (input_->PushKey(DIK_A)) {
 		worldTransform_.rotation_.y -= kRotSpeed;
 	}
 
@@ -173,8 +177,8 @@ void Player::Update() {
 	};
 	// 3Dレティクルの座標を設定
 	worldTransform3Dreticle_.translation_ = {
-	    worldTransform_.translation_.x + offset.x, worldTransform_.translation_.y + offset.y,
-	    worldTransform_.translation_.z + offset.z};
+	    worldTransform_.matWorld_.m[3][0] + offset.x, worldTransform_.matWorld_.m[3][1] + offset.y,
+	    worldTransform_.matWorld_.m[3][2] + offset.z};
 	worldTransform3Dreticle_.UpdateMatrix();
 
 }
@@ -187,6 +191,10 @@ void Player::Draw(ViewProjection& viewProjection) {
 		bullet->Draw(viewProjection);
 	}
 }
+
+void Player::DrawUI() { sprite2DReticle_->Draw(); }
+
+
 void Player::OnCollision() {
 
 

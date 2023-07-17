@@ -98,7 +98,7 @@ void GameScene::Initialize() {
 
 void GameScene::Update() {
 	// 自キャラの更新
-	player_->Update();
+	player_->Update(viewProjection_);
 	// 敵キャラの更新
 	for (Enemy* enemy : enemys_) {
 		enemy->Update();

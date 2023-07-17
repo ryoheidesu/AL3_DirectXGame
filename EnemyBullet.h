@@ -21,6 +21,8 @@ public:
 
 	float GetRadius() { return radius_; }
 
+
+
 private:
 	WorldTransform worldTransform_;
 	Model* model_ = nullptr;
