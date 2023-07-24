@@ -3,6 +3,7 @@
 #include "Input.h"
 #include <cassert>
 #include "MathUtility.h"
+#include <cmath>
 
 Player::~Player() {
 	for (PlayerBullet* bullet : bullets_) {
@@ -50,7 +51,15 @@ void Player::SetParent(const WorldTransform* parent) { worldTransform_.parent_ =
 void Player::Attack() {
 	const float kBulletSpeed = 1.0f;
 	Vector3 velocity(0, 0, kBulletSpeed);
-	velocity = TransformNormal(velocity, worldTransform_.matWorld_);
+	//velocity = TransformNormal(velocity, worldTransform_.matWorld_);
+	Vector3 a = {
+	    worldTransform3Dreticle_.matWorld_.m[3][0], worldTransform3Dreticle_.matWorld_.m[3][1],
+	    worldTransform3Dreticle_.matWorld_.m[3][2]};
+	
+	velocity = { a.x - GetWorldPosition().x,
+	a.y - GetWorldPosition().y,
+	a.z - GetWorldPosition().z
+};
 	if (input_->TriggerKey(DIK_SPACE)) {
 		PlayerBullet* newBullet = new PlayerBullet();
 		newBullet->Initialize(model_, GetWorldPosition(), velocity);
@@ -97,7 +106,7 @@ void Player::Update(ViewProjection& viewProjection) {
 
 	sprite2DReticle_->SetPosition(Vector2(spritePosition.x, spritePosition.y));
 
-	Matrix4x4 matVPV = viewProjection_->matView * viewProjection_->matProjection * matViewport;
+	Matrix4x4 matVPV = viewProjection.matView * viewProjection.matProjection * matViewport;
 	Matrix4x4 matInverseVPV = Inverse(matVPV);
 
 	Vector3 posNear = Vector3(spritePosition.x, spritePosition.y, 0);
@@ -110,7 +119,15 @@ void Player::Update(ViewProjection& viewProjection) {
 	mouseDirection.x = posNear.x + posFar.x;
 	mouseDirection.y = posNear.y + posFar.y;
 	mouseDirection.z = posNear.z + posFar.z;
-	mouseDirection = Normalize(mouseDirection);
+
+
+	float mouseDirectionsize = sqrtf(mouseDirection.x * mouseDirection.x +
+	                           mouseDirection.y * mouseDirection.y +
+	                           mouseDirection.z * mouseDirection.z);
+	mouseDirection.x = mouseDirection.x / mouseDirectionsize;
+	mouseDirection.y = mouseDirection.y / mouseDirectionsize;
+	mouseDirection.z = mouseDirection.z / mouseDirectionsize;
+;
 	const float kDistansTestObject = 60.0f;
 	worldTransform3Dreticle_.translation_.x = posNear.x + mouseDirection.x * kDistansTestObject;
 	worldTransform3Dreticle_.translation_.y = posNear.y + mouseDirection.y * kDistansTestObject;
