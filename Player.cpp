@@ -97,36 +97,35 @@ void Player::Update(ViewProjection& viewProjection) {
 
 	sprite2DReticle_->SetPosition(Vector2(spritePosition.x, spritePosition.y));
 
-	//Matrix4x4 matVPV = viewProjection_->matView * viewProjection_->matProjection * matViewport;
-	//Matrix4x4 matInverseVPV = Inverse(matVPV);
+	Matrix4x4 matVPV = viewProjection_->matView * viewProjection_->matProjection * matViewport;
+	Matrix4x4 matInverseVPV = Inverse(matVPV);
 
 	Vector3 posNear = Vector3(spritePosition.x, spritePosition.y, 0);
 	Vector3 posFar = Vector3(spritePosition.x, spritePosition.y, 1);
 
-	//posNear = Transform(posNear, matInverseVPV);
-	//posFar = Transform(posFar, matInverseVPV);
+	posNear = Transform(posNear, matInverseVPV);
+	posFar = Transform(posFar, matInverseVPV);
 
-	/*Vector3 mouseDirection;
+	Vector3 mouseDirection;
 	mouseDirection.x = posNear.x + posFar.x;
 	mouseDirection.y = posNear.y + posFar.y;
 	mouseDirection.z = posNear.z + posFar.z;
 	mouseDirection = Normalize(mouseDirection);
 	const float kDistansTestObject = 60.0f;
-	worldTransform3DReticle_.translation_.x = posNear.x + mouseDirection.x * kDistansTestObject;
-	worldTransform3DReticle_.translation_.y = posNear.y + mouseDirection.y * kDistansTestObject;
-	worldTransform3DReticle_.translation_.z = posNear.z + mouseDirection.z * kDistansTestObject;
+	worldTransform3Dreticle_.translation_.x = posNear.x + mouseDirection.x * kDistansTestObject;
+	worldTransform3Dreticle_.translation_.y = posNear.y + mouseDirection.y * kDistansTestObject;
+	worldTransform3Dreticle_.translation_.z = posNear.z + mouseDirection.z * kDistansTestObject;
 
-	worldTransform3DReticle_.UpdateMatrix();
-	worldTransform3DReticle_.TransferMatrix();
-	worldTranceform_.TransferMatrix();
+	worldTransform3Dreticle_.UpdateMatrix();
+	worldTransform3Dreticle_.TransferMatrix();
+	worldTransform_.TransferMatrix();
 	ImGui::Begin("Player");
 	ImGui::Text("2DReticle:(%f,%f)", spritePosition.x, spritePosition.y);
 	ImGui::Text("Near:(%+.2f,%+.2f,%+.2f)", posNear.x, posNear.y, posNear.z);
 	ImGui::Text("Far:(%+.2f,%+.2f,%+.2f)", posFar.x, posFar.y, posFar.z);
-	ImGui::Text(
-	    "3DReticle:(%+.2f,%+.2f,%+.2f)", worldTransform3DReticle_.translation_.x,
-	    worldTransform3DReticle_.translation_.y, worldTransform3DReticle_.translation_.z);
-	ImGui::End();*/
+	ImGui::Text("3DReticle:(%+.2f,%+.2f,%+.2f)", worldTransform3Dreticle_.translation_.x,
+	worldTransform3Dreticle_.translation_.y, worldTransform3Dreticle_.translation_.z);
+	ImGui::End();
 
 	bullets_.remove_if([](PlayerBullet* bullet) {
 		if (bullet->IsDead()) {
