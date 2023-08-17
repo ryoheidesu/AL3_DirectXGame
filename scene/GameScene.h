@@ -122,5 +122,10 @@ private:
 
 	int waitTimer = 120;
 
+	enum class Scene {
+		title,
+		GamePlay,
+	};
+	Scene scene = Scene::title;
 
 };

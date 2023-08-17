@@ -94,55 +94,73 @@ void GameScene::Initialize() {
 }
 
 void GameScene::Update() {
-	// 自キャラの更新
-	player_->Update();
-	// 敵キャラの更新
-	for (Enemy* enemy : enemys_) {
-		enemy->Update();
-	}
-	
-	UpdateEnemyPopCommands();
 
-	CheckAllCollisions();
-	railCamera_->Update();
-#ifdef _DEBUG
-	//デバックカメラキー
-	if (input_->TriggerKey(DIK_RETURN)) {
-		isDebugCameraActive_ = true;
-	}
+	switch (scene) {
+    
+    case GameScene::Scene::title:
+
+		if (input_->PushKey(DIK_RETURN)) {
+			scene = Scene::GamePlay;
+		}
+		break;
 	
+	case GameScene::Scene::GamePlay:
+		// 自キャラの更新
+		player_->Update();
+		// 敵キャラの更新
+		for (Enemy* enemy : enemys_) {
+			enemy->Update();
+		}
+
+		UpdateEnemyPopCommands();
+
+		CheckAllCollisions();
+		railCamera_->Update();
+#ifdef _DEBUG
+		// デバックカメラキー
+		if (input_->TriggerKey(DIK_RETURN)) {
+			isDebugCameraActive_ = true;
+		}
+
 #endif // DEBUG
 
-	if (isDebugCameraActive_) {
-		debugCamera_->Update();
+		if (isDebugCameraActive_) {
+			debugCamera_->Update();
 
-		/*viewProjection_.matView = debugCamera_->GetViewProjection().matView;
-		viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;*/
+			/*viewProjection_.matView = debugCamera_->GetViewProjection().matView;
+			viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;*/
 
-		
+			//
 
-		//
-		
-	} else {
-		viewProjection_.matView = railCamera_->GetViewProjection().matView;
-		viewProjection_.matProjection = railCamera_->GetViewProjection().matProjection;
-		//viewProjection_.UpdateMatrix();
-		viewProjection_.TransferMatrix();
-
-	}
-
-	enemyBullets_.remove_if([](EnemyBullet* bullet) {
-		if (bullet->IsDead()) {
-			delete bullet;
-			return true;
+		} else {
+			viewProjection_.matView = railCamera_->GetViewProjection().matView;
+			viewProjection_.matProjection = railCamera_->GetViewProjection().matProjection;
+			// viewProjection_.UpdateMatrix();
+			viewProjection_.TransferMatrix();
 		}
-		return false;
-	});
 
-	for (EnemyBullet* bullet : enemyBullets_) {
-		bullet->Update();
+		enemyBullets_.remove_if([](EnemyBullet* bullet) {
+			if (bullet->IsDead()) {
+				delete bullet;
+				return true;
+			}
+			return false;
+		});
+
+		for (EnemyBullet* bullet : enemyBullets_) {
+			bullet->Update();
+		}
+
+		break;
+
+	default:
+
+		break;
+
+	
+
 	}
-
+	
 
 }
 
