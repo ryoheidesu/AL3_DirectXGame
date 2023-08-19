@@ -167,6 +167,7 @@ void GameScene::Update() {
 
 }
 
+
 void GameScene::AddEnemy(Enemy* enemy) { enemys_.push_back(enemy); }
 
 void GameScene::Draw() {
