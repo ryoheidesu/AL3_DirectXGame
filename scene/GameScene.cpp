@@ -57,8 +57,6 @@ void GameScene::Initialize() {
 	LoadEnemyPopData();
 	
 	
-
-
 	// 読み込み
 	// モデル生成
 	model_ = Model::Create();
