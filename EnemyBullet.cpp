@@ -6,7 +6,7 @@ void EnemyBullet::Initialize(Model* model, const Vector3& position, const Vector
 	assert(model);
 	model_ = model;
 	velocity_ = velocity;
-	textureHandle_ = TextureManager::Load("uvChecker.png");
+	textureHandle_ = TextureManager::Load("Enemybullet.png");
 
 	worldTransform_.Initialize();
 	worldTransform_.translation_.x = position.x;

@@ -43,12 +43,12 @@ void GameScene::Initialize() {
 	player_ = new Player();
 	Vector3 playerPosition{0, 0, 50};
 	// 自キャラの初期化
-	textureHandleP_ = TextureManager::Load("sample.png");
+	textureHandleP_ = TextureManager::Load("Player.png");
 	// 敵キャラの生成
 	Enemy* newEnemy = new Enemy();
 	
 	// 敵キャラの初期化
-	textureHandleE_ = TextureManager::Load("sample.png");
+	textureHandleE_ = TextureManager::Load("Enemy.png");
 	// 天球の生成
 	skydome_ = new Skydome();
 	//レールカメラの生成
