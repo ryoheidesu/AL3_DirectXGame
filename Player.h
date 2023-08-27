@@ -74,6 +74,12 @@ public:
 	/// <param name="parent"></param>
 	void SetParent(const WorldTransform* parent);
 
+	void SetIsDead(bool isDead) { this->isDead_ = isDead; }
+
+    bool GetIsDead() { return isDead_; }
+
+
+
 private:
 	WorldTransform worldTransform_;
 	Model* model_ = nullptr;
@@ -85,4 +91,8 @@ private:
 	WorldTransform worldTransform3Dreticle_;
 	// 2Dレティクル用スプライト
 	Sprite* sprite2DReticle_ = nullptr;
+	//寿命
+	bool isDead_ = false;
+
+
 };

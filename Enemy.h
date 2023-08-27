@@ -29,6 +29,8 @@ public:
 	static const int kFireInterval = 60;
 	void ApproachInitialize();
 
+	bool IsDead() const { return isDead_; }
+
 	void SetPlayer(Player* player) { player_ = player; }
 	void OnCollision();
 	
@@ -47,6 +49,8 @@ private:
 	int32_t shotInterval_ = 60;
 	Player* player_ = nullptr;
 	float radius_ = 1.0f;
+	//寿命
+	bool isDead_ = false;
 };
 
 

@@ -119,5 +119,5 @@ void Enemy::ApproachInitialize() {
 }
 
 void Enemy::OnCollision() {
-
+	isDead_ = true;
 }

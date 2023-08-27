@@ -31,6 +31,8 @@ void Player::Initialize(Model* model, uint32_t textureHandle, const Vector3& tra
 	//3Dレティクルのワールドトランスフォーム初期化
 	worldTransform3Dreticle_.Initialize();
 	worldTransform_.translation_ = trans;
+
+	isDead_ = false;
 }
 
 
@@ -196,6 +198,5 @@ void Player::DrawUI() { sprite2DReticle_->Draw(); }
 
 
 void Player::OnCollision() {
-
-
+    isDead_ = true;
 }

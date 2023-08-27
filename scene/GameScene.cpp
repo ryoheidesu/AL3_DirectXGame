@@ -88,19 +88,19 @@ void GameScene::Initialize() {
 }
 
 void GameScene::Update() {
-	///===========================================
-	// シーン処理
-	///===========================================
+	///
+	/// シーン処理
+	///
 	switch (scene) {
-	// タイトル==================================================================================================
+	// タイトル
 	case GameScene::Scene::Title:
 
-		if (input_->PushKey(DIK_SPACE)) {
+		if (input_->TriggerKey(DIK_SPACE)) {
 			scene = Scene::GamePlay;
 		}
 		break;
 
-	// ゲームプレイ===============================================================================================
+	// ゲームプレイ
 	case GameScene::Scene::GamePlay:
 		// 自キャラの更新
 		player_->Update(viewProjection_);
@@ -133,6 +133,14 @@ void GameScene::Update() {
 			// viewProjection_.UpdateMatrix();
 			viewProjection_.TransferMatrix();
 		}
+
+		enemys_.remove_if([](Enemy* enemy) {
+			if (enemy->IsDead()) {
+				delete enemy;
+				return true;
+			}
+			return false;
+		});
 
 		enemyBullets_.remove_if([](EnemyBullet* bullet) {
 			if (bullet->IsDead()) {
@@ -284,6 +292,9 @@ void GameScene::CheckAllCollisions() {
 			player_->OnCollision();
 
 			bullet_->OnCollision();
+
+			scene = Scene::Result;
+			
 		}
 	}
 
