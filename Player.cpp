@@ -143,8 +143,9 @@ void Player::Update(ViewProjection& viewProjection) {
 		worldTransform_.matWorld_ *= worldTransform_.parent_->matWorld_;
 	}
 
-	const float kMoveLimitX = 30.0f;
-	const float kMoveLimitY = 30.0f;
+	//移動制限
+	const float kMoveLimitX = 35.0f;
+	const float kMoveLimitY = 19.0f;
 
 	worldTransform_.translation_.x = max(worldTransform_.translation_.x, -kMoveLimitX);
 	worldTransform_.translation_.x = min(worldTransform_.translation_.x, +kMoveLimitX);

@@ -93,7 +93,7 @@ void Enemy::Draw(ViewProjection& viewProjection) {
 
 void Enemy::Fire() {
 	assert(player_);
-	const float kBulletSpeed = 1.0f;
+	const float kBulletSpeed = 0.3f;
 	/*Vector3 velocity(0, 0, -kBulletSpeed);
 	velocity = TransformNormal(velocity, worldTransform_.matWorld_);*/
 	Vector3 a = GetWorldPosition();

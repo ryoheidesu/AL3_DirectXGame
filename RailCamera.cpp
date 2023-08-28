@@ -1,4 +1,4 @@
-#include "RailCamera.h"
+﻿#include "RailCamera.h"
 #include "ImGuiManager.h"
 
 
@@ -13,7 +13,8 @@ void RailCamera::Initialize(Vector3 trans, Vector3 rot) {
 }
 
 void RailCamera::Update() {
-	Vector3 move = {0.0f, 0.0f, 0.1f};
+	//天球
+	Vector3 move = {0.0f, 0.0f, 0.0f};
 	Vector3 rot = {0.0f, 0.0f, 0.0f};
 
 	worldTransform_.translation_.x += move.x;
