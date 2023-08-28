@@ -237,7 +237,7 @@ void GameScene::Draw() {
 		ui_->Draw();
 		break;
 	case GameScene::Scene::GamePlay:
-		player_->DrawUI();
+		//player_->DrawUI();
 		break;
 	case GameScene::Scene::Result:
 		break;
