@@ -97,6 +97,7 @@ void GameScene::Initialize() {
 	viewProjection_.Initialize();*/
 	// レールカメラ初期化
 	railCamera_->Initialize(worldTransform_.translation_, worldTransform_.rotation_);
+
 }
 
 void GameScene::Update() {
@@ -111,11 +112,11 @@ void GameScene::Update() {
 		//	// ここを"敵に弾が当たったら"に配置
 		//	gameScore_ += addScoreVal_;
 		//}
-
+		gameScore_ = 0;
 		if (input_->TriggerKey(DIK_SPACE)) {
 			scene = Scene::GamePlay;
 		}
-
+		
 		break;
 
 	// ゲームプレイ
