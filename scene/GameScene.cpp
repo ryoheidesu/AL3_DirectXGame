@@ -257,7 +257,6 @@ void GameScene::Draw() {
 	switch (scene) {
 	case GameScene::Scene::Title:
 		ui_->Draw();
-		// デバッグ用
 		//score_->DrawScoreUI(gameScore_);
 		break;
 	case GameScene::Scene::GamePlay:
