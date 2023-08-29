@@ -115,6 +115,7 @@ void GameScene::Update() {
 		if (input_->TriggerKey(DIK_SPACE)) {
 			scene = Scene::GamePlay;
 		}
+
 		break;
 
 	// ゲームプレイ
@@ -125,7 +126,7 @@ void GameScene::Update() {
 		for (Enemy* enemy : enemys_) {
 			enemy->Update();
 		}
-
+		
 		UpdateEnemyPopCommands();
 
 		CheckAllCollisions();
@@ -179,6 +180,9 @@ void GameScene::Update() {
 		if (input_->TriggerKey(DIK_SPACE)) {
 			scene = Scene::Title;
 		}
+		Initialize();
+		enemys_.clear();
+		enemyBullets_.clear();
 		break;
 
 	default:
@@ -260,6 +264,7 @@ void GameScene::Draw() {
 		score_->DrawScoreUI(gameScore_);
 		break;
 	case GameScene::Scene::Result:
+		score_->DrawScoreUI(gameScore_);
 		break;
 	default:
 		break;
@@ -273,6 +278,10 @@ void GameScene::Draw() {
 // ファイル読み込み
 void GameScene::LoadEnemyPopData() {
 
+	//初期化コード
+	enemyPopCommands.str("");
+	enemyPopCommands.clear(enemyPopCommands.goodbit);
+	
 	std::ifstream file;
 	file.open("./Resources/enemyPop.csv");
 	assert(file.is_open());
@@ -404,4 +413,6 @@ void GameScene::UpdateEnemyPopCommands() {
 			break;
 		}
 	}
+	
+	
 }
