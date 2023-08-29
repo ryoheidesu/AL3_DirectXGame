@@ -107,10 +107,10 @@ void GameScene::Update() {
 	// タイトル
 	case GameScene::Scene::Title:
 		// デバッグ用
-		if (input_->PushKey(DIK_RETURN)) {
-			// ここを"敵に弾が当たったら"に配置
-			gameScore_ += addScoreVal_;
-		}
+		//if (input_->PushKey(DIK_RETURN)) {
+		//	// ここを"敵に弾が当たったら"に配置
+		//	gameScore_ += addScoreVal_;
+		//}
 
 		if (input_->TriggerKey(DIK_SPACE)) {
 			scene = Scene::GamePlay;
@@ -334,6 +334,7 @@ void GameScene::CheckAllCollisions() {
 				enemy->OnCollision();
 
 				bullet_->OnCollision();
+				gameScore_ += addScoreVal_;
 			}
 		}
 	}
