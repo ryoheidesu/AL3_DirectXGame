@@ -175,10 +175,10 @@ void GameScene::Update() {
 
 		break;
 
-		// リザルト
+		//リザルト
 	case GameScene::Scene::Result:
-		// スペースでタイトルへ
-		if (input_->TriggerKey(DIK_SPACE)) {
+		//タイトルへ
+		if (input_->TriggerKey(DIK_RETURN)) {
 			scene = Scene::Title;
 		}
 		Initialize();
