@@ -128,6 +128,10 @@ void Player::Update(ViewProjection& viewProjection) {
 		worldTransform_.rotation_.y += kRotSpeed;
 	} else if (input_->PushKey(DIK_LEFT)) {
 		worldTransform_.rotation_.y -= kRotSpeed;
+	} else if (input_->PushKey(DIK_UP)) {
+		worldTransform_.rotation_.x -= kRotSpeed;
+	} else if (input_->PushKey(DIK_DOWN)) {
+		worldTransform_.rotation_.x += kRotSpeed;
 	}
 
 	Attack();
