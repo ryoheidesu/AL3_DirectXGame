@@ -258,7 +258,7 @@ void GameScene::Draw() {
 	case GameScene::Scene::Title:
 		ui_->Draw();
 		// デバッグ用
-		score_->DrawScoreUI(gameScore_);
+		//score_->DrawScoreUI(gameScore_);
 		break;
 	case GameScene::Scene::GamePlay:
 		player_->DrawUI();
