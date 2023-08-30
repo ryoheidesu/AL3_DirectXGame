@@ -50,7 +50,7 @@ void Player::SetParent(const WorldTransform* parent) { worldTransform_.parent_ =
 
 
 void Player::Attack() {
-	const float kBulletSpeed = 1.0f;
+	const float kBulletSpeed = 2.0f;
 	Vector3 velocity(0, 0, kBulletSpeed);
 	velocity = TransformNormal(velocity, worldTransform_.matWorld_);
 	if (input_->TriggerKey(DIK_SPACE)) {
@@ -100,7 +100,7 @@ void Player::Update(ViewProjection& viewProjection) {
 	Vector3 move = {0, 0, 0};
 
 	// キャラクターの移動速さ
-	const float kCharacterSpeed = 0.2f;
+	const float kCharacterSpeed = 0.3f;
 
 	// 押した方向で移動ベクトルを変更
 	worldTransform_.TransferMatrix();
@@ -159,13 +159,13 @@ void Player::Update(ViewProjection& viewProjection) {
 	// 行列転送
 	worldTransform_.TransferMatrix();
 
-	ImGui::Begin("player");
+	/*ImGui::Begin("player");
 	float sliderValue[3] = {
 	    worldTransform_.translation_.x, worldTransform_.translation_.y,
 	    worldTransform_.translation_.z};
 	ImGui::SliderFloat3("position", sliderValue, -20.0f, 20.0f);
 	worldTransform_.translation_ = {sliderValue[0], sliderValue[1], sliderValue[2]};
-	ImGui::End();
+	ImGui::End();*/
 
 
 	// 自機から3Dレティクルへの距離

@@ -13,8 +13,8 @@
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
+#include <BackGround.h>
 #include <Score.h>
-#include <Ui.h>
 #include <sstream>
 
 /// <summary>
@@ -114,12 +114,13 @@ private:
 
 	RailCamera* railCamera_ = nullptr;
 
-	Ui* ui_ = nullptr;
+	BackGround* BackGround_ = nullptr;
 
 	Score* score_ = nullptr;
 	int gameScore_ = 0;
 	// スコア増加量
-	int addScoreVal_ = 123;
+	int addScoreVal_ = 1;
+	
 
 	bool waitFlag = false;
 

@@ -68,7 +68,7 @@ void Enemy::Update() {
 			shotTimer_ = kFireInterval;
 		}
 
-		worldTransform_.translation_.z -= 0.3f;
+		worldTransform_.translation_.z -= 0.2f;
 
 		if (worldTransform_.translation_.z < 0.0f) {
 			phase_ = Phase::Leave;
@@ -77,7 +77,7 @@ void Enemy::Update() {
 		break;
 
     case Phase::Leave:
-		worldTransform_.translation_.y += 0.3f;
+		worldTransform_.translation_.y += 0.2f;
 		break;
 	}
 

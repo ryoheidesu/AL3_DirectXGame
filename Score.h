@@ -15,6 +15,9 @@ public:
 
 	void DrawScoreUI(int score);
 
+	void DrawScoreUIResult(int score);
+
 private:
 	Sprite* sprite2DNum_[6][10];
+	Sprite* sprite2DNumResult_[6][10];
 };

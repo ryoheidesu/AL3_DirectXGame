@@ -23,7 +23,7 @@ GameScene::~GameScene() {
 	delete skydome_;
 	delete modelSkydome_;
 	delete railCamera_;
-	delete ui_;
+	delete BackGround_;
 }
 
 void GameScene::Initialize() {
@@ -34,6 +34,8 @@ void GameScene::Initialize() {
 	// レティクルのテクスチャ
 	TextureManager::Load("target.png");
 	// タイトルのテクスチャ
+	TextureManager::Load("Title.png");
+	// リザルトのテクスチャ
 	TextureManager::Load("Title.png");
 	// ナンバーテクスチャ
 	TextureManager::Load("num/0.png");
@@ -46,6 +48,7 @@ void GameScene::Initialize() {
 	TextureManager::Load("num/7.png");
 	TextureManager::Load("num/8.png");
 	TextureManager::Load("num/9.png");
+
 	// 自キャラの生成
 	player_ = new Player();
 	Vector3 playerPosition{0, 0, 50};
@@ -60,7 +63,7 @@ void GameScene::Initialize() {
 	skydome_ = new Skydome();
 	// レールカメラの生成
 	railCamera_ = new RailCamera();
-	ui_ = new Ui();
+	BackGround_ = new BackGround();
 	score_ = new Score();
 	LoadEnemyPopData();
 
@@ -69,7 +72,7 @@ void GameScene::Initialize() {
 	model_ = Model::Create();
 	player_->Initialize(model_, textureHandleP_, playerPosition);
 	player_->SetParent(&railCamera_->GetWorldTransform());
-	ui_->Initialize();
+	BackGround_->Initialize();
 	score_->Initialize();
 	newEnemy->Initialize(model_, textureHandleE_);
 	newEnemy->SetPlayer(player_);
@@ -97,7 +100,6 @@ void GameScene::Initialize() {
 	viewProjection_.Initialize();*/
 	// レールカメラ初期化
 	railCamera_->Initialize(worldTransform_.translation_, worldTransform_.rotation_);
-
 }
 
 void GameScene::Update() {
@@ -107,27 +109,24 @@ void GameScene::Update() {
 	switch (scene) {
 	// タイトル
 	case GameScene::Scene::Title:
-		// デバッグ用
-		//if (input_->PushKey(DIK_RETURN)) {
-		//	// ここを"敵に弾が当たったら"に配置
-		//	gameScore_ += addScoreVal_;
-		//}
 		gameScore_ = 0;
+
 		if (input_->TriggerKey(DIK_SPACE)) {
 			scene = Scene::GamePlay;
 		}
-		
+
 		break;
 
 	// ゲームプレイ
 	case GameScene::Scene::GamePlay:
+
 		// 自キャラの更新
 		player_->Update(viewProjection_);
 		// 敵キャラの更新
 		for (Enemy* enemy : enemys_) {
 			enemy->Update();
 		}
-		
+
 		UpdateEnemyPopCommands();
 
 		CheckAllCollisions();
@@ -171,6 +170,11 @@ void GameScene::Update() {
 
 		for (EnemyBullet* bullet : enemyBullets_) {
 			bullet->Update();
+		}
+
+		//強制リザルト
+		if (input_->TriggerKey(DIK_R)) {
+			scene = Scene::Result;
 		}
 
 		break;
@@ -256,15 +260,15 @@ void GameScene::Draw() {
 	/// </summary>
 	switch (scene) {
 	case GameScene::Scene::Title:
-		ui_->Draw();
-		//score_->DrawScoreUI(gameScore_);
+		BackGround_->Draw(0);
 		break;
 	case GameScene::Scene::GamePlay:
 		player_->DrawUI();
 		score_->DrawScoreUI(gameScore_);
 		break;
 	case GameScene::Scene::Result:
-		score_->DrawScoreUI(gameScore_);
+		BackGround_->Draw(1);
+		score_->DrawScoreUIResult(gameScore_);
 		break;
 	default:
 		break;
@@ -278,10 +282,10 @@ void GameScene::Draw() {
 // ファイル読み込み
 void GameScene::LoadEnemyPopData() {
 
-	//初期化コード
+	// 初期化コード
 	enemyPopCommands.str("");
 	enemyPopCommands.clear(enemyPopCommands.goodbit);
-	
+
 	std::ifstream file;
 	file.open("./Resources/enemyPop.csv");
 	assert(file.is_open());
@@ -413,6 +417,4 @@ void GameScene::UpdateEnemyPopCommands() {
 			break;
 		}
 	}
-	
-	
 }

@@ -5,6 +5,7 @@ void Score::Initialize() {
 	for (int i = 0; i < 6; i++) {
 		for (int j = 0; j < 10; j++) {
 			sprite2DNum_[i][j] = nullptr;
+			sprite2DNumResult_[i][j] = nullptr;
 		}
 	};
 	uint32_t textureNum[10] = {
@@ -15,12 +16,16 @@ void Score::Initialize() {
 	    TextureManager::Load("num/8.png"), TextureManager::Load("num/9.png"),
 	};
 	float posX = 1250;
+	float posXResult = 950;
 	for (int i = 0; i < 6; i++) {
 		for (int j = 0; j < 10; j++) {
 			sprite2DNum_[i][j] =
 			    Sprite::Create(textureNum[j], {posX, 30}, {1, 1, 1, 1}, {(1.0f), (0.0f)});
+			sprite2DNumResult_[i][j] =
+			    Sprite::Create(textureNum[j], {posXResult, 250}, {1, 1, 1, 1}, {(0.5f), (0.5f)});
 		}
 		posX -= 50;
+		posXResult -= 50;
 	}
 }
 
@@ -38,15 +43,34 @@ void Score::DrawScoreUI(int score) {
 	sprite2DNum_[0][aa[5]]->Draw();
 	sprite2DNum_[1][aa[4]]->Draw();
 	sprite2DNum_[2][aa[3]]->Draw();
-	sprite2DNum_[3][aa[2]]->Draw();
+	/*sprite2DNum_[3][aa[2]]->Draw();
 	sprite2DNum_[4][aa[1]]->Draw();
-	sprite2DNum_[5][aa[0]]->Draw();
+	sprite2DNum_[5][aa[0]]->Draw();*/
+}
+void Score::DrawScoreUIResult(int score) {
+	int aa[6];
+	int bb = 0;
+	for (int i = 0; i < 6; i++) {
+		if (i == 0) {
+			bb = 100000;
+		}
+		aa[i] = score / bb;
+		score -= aa[i] * bb;
+		bb /= 10;
+	}
+	sprite2DNumResult_[0][aa[5]]->Draw();
+	sprite2DNumResult_[1][aa[4]]->Draw();
+	sprite2DNumResult_[2][aa[3]]->Draw();
+	/*sprite2DNumResult_[3][aa[2]]->Draw();
+	sprite2DNumResult_[4][aa[1]]->Draw();
+	sprite2DNumResult_[5][aa[0]]->Draw();*/
 }
 
 Score::~Score() {
 	for (int i = 0; i < 6; i++) {
 		for (int j = 0; j < 10; j++) {
 			delete sprite2DNum_[i][j];
+			delete sprite2DNumResult_[i][j];
 		}
 	}
 }
