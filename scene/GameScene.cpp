@@ -133,9 +133,9 @@ void GameScene::Update() {
 		railCamera_->Update();
 #ifdef _DEBUG
 		// デバックカメラキー
-		if (input_->TriggerKey(DIK_RETURN)) {
+		/*if (input_->TriggerKey(DIK_RETURN)) {
 			isDebugCameraActive_ = true;
-		}
+		}*/
 
 #endif // DEBUG
 
@@ -356,7 +356,7 @@ void GameScene::CheckAllCollisions() {
 // 自弾と敵弾の当たり判定
 #pragma region
 
-	for (PlayerBullet* playerbullet_ : playerBullets) {
+	/*for (PlayerBullet* playerbullet_ : playerBullets) {
 		for (EnemyBullet* enemybullet_ : enemyBullets) {
 			posA = enemybullet_->GetWorldPosition();
 			posB = playerbullet_->GetWorldPosition();
@@ -369,7 +369,7 @@ void GameScene::CheckAllCollisions() {
 				playerbullet_->OnCollision();
 			}
 		}
-	}
+	}*/
 #pragma endregion
 }
 
