@@ -31,13 +31,13 @@ void GameScene::Initialize() {
 	worldTransform_.Initialize();
 	viewProjection_.Initialize();
 
-	// レティクルのテクスチャ
+	//レティクル
 	TextureManager::Load("target.png");
-	// タイトルのテクスチャ
+	//タイトル
 	TextureManager::Load("Title.png");
-	// リザルトのテクスチャ
+	//リザルト
 	TextureManager::Load("Title.png");
-	// ナンバーテクスチャ
+	//ナンバー
 	TextureManager::Load("num/0.png");
 	TextureManager::Load("num/1.png");
 	TextureManager::Load("num/2.png");
@@ -107,7 +107,7 @@ void GameScene::Update() {
 	/// シーン処理
 	///
 	switch (scene) {
-	// タイトル
+	//タイトル
 	case GameScene::Scene::Title:
 		gameScore_ = 0;
 
@@ -117,7 +117,7 @@ void GameScene::Update() {
 
 		break;
 
-	// ゲームプレイ
+	//ゲーム画面
 	case GameScene::Scene::GamePlay:
 
 		// 自キャラの更新

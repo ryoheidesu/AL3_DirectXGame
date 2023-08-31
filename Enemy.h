@@ -26,7 +26,7 @@ public:
 	void Draw(ViewProjection& viewProjection);
 	void Fire();
 
-	static const int kFireInterval = 60;
+	static const int kFireInterval = 90;
 	void ApproachInitialize();
 
 	bool IsDead() const { return isDead_; }
