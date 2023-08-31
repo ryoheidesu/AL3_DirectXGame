@@ -90,6 +90,8 @@ void GameScene::Initialize() {
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
 
+	
+
 	debugCamera_ = new DebugCamera(WinApp::kWindowWidth, WinApp::kWindowHeight);
 
 	AxisIndicator::GetInstance()->SetVisible(true);
@@ -101,6 +103,7 @@ void GameScene::Initialize() {
 	// レールカメラ初期化
 	railCamera_->Initialize(worldTransform_.translation_, worldTransform_.rotation_);
 }
+
 
 void GameScene::Update() {
 	///
@@ -114,7 +117,6 @@ void GameScene::Update() {
 		if (input_->TriggerKey(DIK_SPACE)) {
 			scene = Scene::GamePlay;
 		}
-
 		break;
 
 	//ゲーム画面

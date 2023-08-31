@@ -70,6 +70,8 @@ public: // メンバ関数
 	/// </summary>
 	void LoadEnemyPopData();
 
+
+
 	/// <summary>
 	/// 敵発生コマンドの更新
 	/// </summary>
@@ -95,6 +97,8 @@ private:
 	// テクスチャハンドル
 	uint32_t textureHandleP_ = 0;
 	uint32_t textureHandleE_ = 0;
+
+	
 	// モデル
 	Model* model_ = nullptr;
 
